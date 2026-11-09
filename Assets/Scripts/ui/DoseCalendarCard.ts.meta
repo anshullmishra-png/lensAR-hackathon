@@ -1,0 +1,52 @@
+- !<AssetImportMetadata/64c4026c-5b77-4784-9020-81a706a6f207>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> b4432a99-dde4-4405-a368-08c3eb4888cf
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> b4432a99-dde4-4405-a368-08c3eb4888cf
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 946a3125-0aeb-4819-8d27-74fde6cc654e
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/946a3125-0aeb-4819-8d27-74fde6cc654e>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: e214135d-2861-45b8-b6c0-d32680fa3a37
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    boxMesh: false
+    cellMaterial: false
+    tickMaterial: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - boxMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      cellMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      tickMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.RenderMesh boxMesh {"hint":"1x1x1 box mesh"}'
+    - '// @input Asset.Material cellMaterial {"hint":"Dim material for an empty slot"}'
+    - '// @input Asset.Material tickMaterial {"hint":"Material for the tick"}'

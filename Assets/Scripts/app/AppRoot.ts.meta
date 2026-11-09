@@ -1,0 +1,85 @@
+- !<AssetImportMetadata/726a62f0-872a-4e43-98f2-caa0b5883498>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> b4af569c-c125-43df-b6c7-76590018978e
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> b4af569c-c125-43df-b6c7-76590018978e
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 1c5032a5-8b45-46bd-b31e-0837aad19c3a
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/1c5032a5-8b45-46bd-b31e-0837aad19c3a>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: f93aed54-3404-430c-9d0d-fbca0b29dab0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    armPlacement: false
+    audioManager: false
+    captions: false
+    cardPanel: false
+    choiceButtons: false
+    dogController: false
+    dogPlacement: false
+    doseCard: false
+    endScreen: false
+    feedback: false
+    flow: false
+    placeAtStart: false
+    progress: false
+    uiAnchor: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - flow: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      dogPlacement: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      dogController: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      uiAnchor: !<MappingBased.AssignableType_4> 00000000-0000-0000-0000-000000000000
+      cardPanel: !<MappingBased.AssignableType_5> 00000000-0000-0000-0000-000000000000
+      choiceButtons: !<MappingBased.AssignableType_6> 00000000-0000-0000-0000-000000000000
+      feedback: !<MappingBased.AssignableType_7> 00000000-0000-0000-0000-000000000000
+      captions: !<MappingBased.AssignableType_8> 00000000-0000-0000-0000-000000000000
+      audioManager: !<MappingBased.AssignableType_9> 00000000-0000-0000-0000-000000000000
+      progress: !<MappingBased.AssignableType_10> 00000000-0000-0000-0000-000000000000
+      armPlacement: !<MappingBased.AssignableType_11> 00000000-0000-0000-0000-000000000000
+      doseCard: !<MappingBased.AssignableType_12> 00000000-0000-0000-0000-000000000000
+      endScreen: !<MappingBased.AssignableType_13> 00000000-0000-0000-0000-000000000000
+      placeAtStart: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType_1 flow
+    - // @input AssignableType_2 dogPlacement
+    - // @input AssignableType_3 dogController
+    - // @input AssignableType_4 uiAnchor
+    - // @input AssignableType_5 cardPanel
+    - // @input AssignableType_6 choiceButtons
+    - // @input AssignableType_7 feedback
+    - // @input AssignableType_8 captions
+    - // @input AssignableType_9 audioManager
+    - // @input AssignableType_10 progress
+    - // @input AssignableType_11 armPlacement
+    - // @input AssignableType_12 doseCard
+    - // @input AssignableType_13 endScreen
+    - '// @input bool placeAtStart {"hint":"Only for testing without onboarding: place the dog and UI right at start."}'

@@ -1,0 +1,52 @@
+- !<AssetImportMetadata/0f9c9fc0-7eb5-49f5-a674-19d979b53cc3>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 0d9b539e-3dc7-4888-97c1-be581c962354
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 0d9b539e-3dc7-4888-97c1-be581c962354
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 9249d819-e78a-4415-ba14-46f656814314
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/9249d819-e78a-4415-ba14-46f656814314>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 101d00ca-fd0a-4af2-806e-0f47a79fcc75
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    boxMesh: false
+    ringMaterial: false
+    waterMaterial: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - boxMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      ringMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      waterMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.RenderMesh boxMesh {"hint":"1x1x1 box mesh"}'
+    - '// @input Asset.Material ringMaterial {"hint":"Material for the ring segments"}'
+    - '// @input Asset.Material waterMaterial {"hint":"Material for the water streaks"}'

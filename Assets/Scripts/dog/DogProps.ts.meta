@@ -1,0 +1,64 @@
+- !<AssetImportMetadata/0d5ba2d0-e221-4015-baff-b4e5d6b50f61>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> cd8180aa-ee71-4a9a-9981-19cfe0528261
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> cd8180aa-ee71-4a9a-9981-19cfe0528261
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> fe11456a-d32c-4a37-9c1d-64e6fb235e8e
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/fe11456a-d32c-4a37-9c1d-64e6fb235e8e>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 2c6977a1-0598-4769-b832-32245486ede0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    barkMaterial: false
+    bowlMaterial: false
+    boxMesh: false
+    cylinderMesh: false
+    foodMaterial: false
+    puppyMaterial: false
+    sphereMesh: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - boxMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      sphereMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      cylinderMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      bowlMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      foodMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      puppyMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      barkMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.RenderMesh boxMesh {"hint":"1x1x1 box mesh"}'
+    - '// @input Asset.RenderMesh sphereMesh {"hint":"Sphere mesh (1 cm diameter)"}'
+    - '// @input Asset.RenderMesh cylinderMesh {"hint":"Cylinder mesh (1 cm tall, 1 cm across)"}'
+    - // @input Asset.Material bowlMaterial
+    - // @input Asset.Material foodMaterial
+    - // @input Asset.Material puppyMaterial
+    - // @input Asset.Material barkMaterial

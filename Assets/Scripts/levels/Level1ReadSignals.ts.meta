@@ -1,0 +1,46 @@
+- !<AssetImportMetadata/684876ca-e414-4c02-8969-f5b2bf962f7a>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 4aba39df-9fa4-4a0e-a388-9e3e9e5c90ce
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 4aba39df-9fa4-4a0e-a388-9e3e9e5c90ce
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> c3a7286f-e598-4318-9790-d5d2573660c1
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/c3a7286f-e598-4318-9790-d5d2573660c1>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: d31f30a8-f8e0-468b-b08d-2ce9f7227ce4
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    firstItemOnly: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - firstItemOnly: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input bool firstItemOnly {"hint":"Testing only: play just the first dog state. Leave unticked to play all three."}'

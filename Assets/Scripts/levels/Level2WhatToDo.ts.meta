@@ -1,0 +1,46 @@
+- !<AssetImportMetadata/2c9d70e0-68c9-440b-aa57-8e5e682f2bd4>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 0335dc4f-b37a-4003-a5bb-a56527f03130
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 0335dc4f-b37a-4003-a5bb-a56527f03130
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 0a00f041-8619-42b8-a023-c9df5bc5b003
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/0a00f041-8619-42b8-a023-c9df5bc5b003>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 64903835-e15a-4a8f-a827-d36d4ad0a988
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    startIndex: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - startIndex: !<float> 0.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input float startIndex {"hint":"Testing only: start from this scenario (0 = the first). Leave at 0 for a normal run."}'

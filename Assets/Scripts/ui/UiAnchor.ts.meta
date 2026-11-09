@@ -1,0 +1,49 @@
+- !<AssetImportMetadata/c29cebc0-1957-4c00-a8cf-27501802db61>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 8b7a03b9-1b7d-4a66-8118-7c47b19dddf6
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 8b7a03b9-1b7d-4a66-8118-7c47b19dddf6
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 301031d6-323d-4bdc-aab1-429afd03b8e5
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/301031d6-323d-4bdc-aab1-429afd03b8e5>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 22ba0dd8-9689-4deb-9018-e60d38cd90c7
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cameraObject: false
+    followSpeed: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - cameraObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      followSpeed: 1.500000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input SceneObject cameraObject {"hint":"The Camera Object"}'
+    - "// @input float followSpeed = 1.5 {\"hint\":\"Higher = follows faster. Low values feel 'lazy'.\"}"

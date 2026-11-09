@@ -1,0 +1,52 @@
+- !<AssetImportMetadata/f31c1c03-fc41-45dd-834c-4244d924a7d1>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 999cd3c2-194c-4144-9bca-3ef1e09e0ea9
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 999cd3c2-194c-4144-9bca-3ef1e09e0ea9
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> d6707efb-b576-4d23-9815-96a37fcf34db
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/d6707efb-b576-4d23-9815-96a37fcf34db>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 626ac167-3f81-4d73-b9cb-5ae49f5317d2
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cameraObject: false
+    maxYawDeg: false
+    smoothing: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - cameraObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      maxYawDeg: !<float> 60.000000
+      smoothing: !<float> 5.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input SceneObject cameraObject {"hint":"The Camera Object the dog looks at"}'
+    - '// @input float maxYawDeg = 60 {"hint":"Maximum turn away from the placement direction, in degrees"}'
+    - '// @input float smoothing = 5 {"hint":"Higher = snappier turning"}'

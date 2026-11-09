@@ -1,0 +1,49 @@
+- !<AssetImportMetadata/333c26b0-e394-4fab-be44-01887080130b>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 5d256213-6333-40ff-aba4-e5c5258304eb
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 5d256213-6333-40ff-aba4-e5c5258304eb
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> cada5f13-5d2b-4113-a473-bf384ff484b1
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/cada5f13-5d2b-4113-a473-bf384ff484b1>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 063ddf8e-00e0-4922-b0bf-d4edbd983ed3
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    dogPlacement: false
+    uiAnchor: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - dogPlacement: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      uiAnchor: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType_1 dogPlacement
+    - // @input AssignableType_2 uiAnchor

@@ -1,0 +1,55 @@
+- !<AssetImportMetadata/6cffb162-4963-4a2b-a55d-a3bec6177a50>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 25a7cdaf-9144-4775-afda-7497ee82e18b
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 25a7cdaf-9144-4775-afda-7497ee82e18b
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 59b6f586-b4f3-435a-af4b-13ec2604c4d1
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/59b6f586-b4f3-435a-af4b-13ec2604c4d1>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: b350c7ab-11ee-4407-8bb9-61c457569b89
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    lookAt: false
+    loopNode: false
+    modelNode: false
+    props: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - modelNode: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      loopNode: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      lookAt: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      props: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input SceneObject modelNode {"hint":"Parent of the visual. Pose tweens (scale, pitch, height) act on this object."}'
+    - '// @input SceneObject loopNode {"hint":"The dog mesh instance. The idle loop (sway / shake) is applied here."}'
+    - '// @input AssignableType_1 lookAt {"hint":"Turned off while the dog sleeps or eats"}'
+    - '// @input AssignableType_2 props {"hint":"Bowl, puppies and bark icon"}'

@@ -1,0 +1,52 @@
+- !<AssetImportMetadata/2b5e910d-efc1-4f7b-b394-1779db0b721e>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 7a4a844a-4bf0-46c0-915c-15d7576038c3
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 7a4a844a-4bf0-46c0-915c-15d7576038c3
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 740b423b-9698-47e3-85cc-0b2992b0901f
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/740b423b-9698-47e3-85cc-0b2992b0901f>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 1e5b20f2-223d-43fd-ae97-ca29f2ca355d
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    badMaterial: false
+    barMesh: false
+    goodMaterial: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - barMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      goodMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      badMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.RenderMesh barMesh {"hint":"A 1x1x1 box mesh used to draw the tick and cross"}'
+    - '// @input Asset.Material goodMaterial {"hint":"Material for the tick"}'
+    - '// @input Asset.Material badMaterial {"hint":"Material for the cross"}'

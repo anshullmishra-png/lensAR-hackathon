@@ -1,0 +1,58 @@
+- !<AssetImportMetadata/75df8cfe-8076-4ea3-bcd7-54206da2307b>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 92bc587e-bd8e-43ab-82a8-a58176ee5c3f
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 92bc587e-bd8e-43ab-82a8-a58176ee5c3f
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 2a0f2471-02f9-474a-959e-b1c398a85433
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/2a0f2471-02f9-474a-959e-b1c398a85433>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 42757b52-cc17-41f8-8933-de05a510d606
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    level1: false
+    level2: false
+    level3: false
+    onboarding: false
+    startAt: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - onboarding: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      level1: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      level2: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      level3: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      startAt: ""
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject onboarding
+    - // @input SceneObject level1
+    - // @input SceneObject level2
+    - // @input SceneObject level3
+    - '// @input string startAt {"hint":"Testing only: jump straight to a level (LEVEL1, LEVEL2, LEVEL3). Leave empty for a normal run."}'

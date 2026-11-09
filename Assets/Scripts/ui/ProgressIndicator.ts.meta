@@ -1,0 +1,52 @@
+- !<AssetImportMetadata/b8392f27-2770-41be-bd40-f670aeb26fe9>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 909286fe-2b1c-4250-8dca-3cc185e036a1
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 909286fe-2b1c-4250-8dca-3cc185e036a1
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> ba49334a-2047-42be-861f-5e217409935c
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/ba49334a-2047-42be-861f-5e217409935c>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: fb92890d-7d61-4094-9aec-a4be39ac8f02
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    dotMesh: false
+    dotOff: false
+    dotOn: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - dotMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      dotOn: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      dotOff: !<reference.Material> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.RenderMesh dotMesh {"hint":"Sphere mesh (1 cm diameter)"}'
+    - '// @input Asset.Material dotOn {"hint":"Bright material for an answered dot"}'
+    - '// @input Asset.Material dotOff {"hint":"Dim material for a waiting dot"}'

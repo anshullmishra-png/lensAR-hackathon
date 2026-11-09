@@ -1,0 +1,61 @@
+- !<AssetImportMetadata/d993266d-3ff5-4ea3-b9f9-fc4fafcb2483>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> ad37ea16-ad4a-40e9-b467-7956a695749b
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> ad37ea16-ad4a-40e9-b467-7956a695749b
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> db97f81f-eed0-453b-b5ab-8831b3551db6
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/db97f81f-eed0-453b-b5ab-8831b3551db6>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 513bb0ea-8802-4b86-b561-0e2ab2e74f61
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cleanMaterial: false
+    freshMaterial: false
+    markMaterial: false
+    ringMesh: false
+    sphereMesh: false
+    washingMaterial: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - sphereMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      ringMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      markMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      freshMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      washingMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      cleanMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.RenderMesh sphereMesh {"hint":"Sphere mesh (1 cm across)"}'
+    - '// @input Asset.RenderMesh ringMesh {"hint":"Torus mesh for the ring"}'
+    - '// @input Asset.Material markMaterial {"hint":"Dark skin-toned material for the two marks (not red)"}'
+    - // @input Asset.Material freshMaterial
+    - // @input Asset.Material washingMaterial
+    - // @input Asset.Material cleanMaterial

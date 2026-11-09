@@ -1,0 +1,50 @@
+- !<AssetImportMetadata/cfe75f31-61eb-4bc3-a404-ba7524808258>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> ff31c57a-7bae-4309-a5d2-491d0ddf3368
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> ff31c57a-7bae-4309-a5d2-491d0ddf3368
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 58f67453-8e21-44ff-aa88-6750be657ae4
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/58f67453-8e21-44ff-aa88-6750be657ae4>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: fbb1a55e-a4d3-4ead-a949-8215d0188d0f
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    audio: false
+    tracks: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - audio: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
+      tracks: !<reference.AudioTrackAsset[]>
+        []
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Component.AudioComponent audio {"hint":"The AudioComponent that plays the clips"}'
+    - '// @input Asset.AudioTrackAsset[] tracks {"hint":"Hindi clips and sound effects. Name each file after its audioId, e.g. l1_a"}'
