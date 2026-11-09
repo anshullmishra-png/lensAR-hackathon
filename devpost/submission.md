@@ -41,7 +41,7 @@ Everything is on screen in Hindi and English together. Moti's ears, tail, jaw, e
 Teaching works better when the learner is told where to look, not what to see. Naming only the body part before the answer, and the actual cue after it, did that.
 
 ## What is next
-- Hindi voice-over for every line (the recording script and the loader are in the repo).
+- Hindi voice-over for every line (the recording script `tools/recording-script.md` and the loader are in the repo; the 16 lines are not recorded yet).
 - A native-speaker review of all Hindi.
 - Testing on real Spectacles with the real field of view and a floor query.
 - More languages.
@@ -50,7 +50,7 @@ Teaching works better when the learner is told where to look, not what to see. N
 - **Tested in the Lens Studio preview, not on real glasses.** The benefit of glasses for this idea (a dog standing in your space that you can walk around) is unproven.
 - **Input is pinch and drag on floating panels.** The spatial part is Moti, the dots anchored on his body, and the first-aid forearm.
 - **The wash timer is a 15-second demo** (`DEMO_MODE` is on, with a skip button) so a reviewer can finish the step. Set `DEMO_MODE` to `false` for a real 15-minute wash.
-- **Hindi is a draft** and has not had a native-speaker review. [Hindi voice lines: recorded / not recorded: choose one before you submit.]
+- **Hindi is a draft** and has not had a native-speaker review. **There is no Hindi voice-over yet: every line is shown as a caption in Hindi and English.** The recording script and the audio loader are ready in the repo.
 - **Training aid, not medical advice.** The Lens never judges whether a dog is rabid and never gives a vaccine schedule or dose count.
 - **The dog model is generated.** It came from SPECS Text-to-3D (see "Dog model origin" below); we added the skeleton, the rig and the face parts. Snap's Generative Lens Tools Terms allow generated assets to be used "solely for the purpose of creating Lenses in Lens Studio", say nothing about who owns the output, and do not name SPECS Text-to-3D, so we make no ownership claim over the mesh itself.
 - **The planning brief in `devpost/design-brief.md` was written after the build** (it says so at the top). `devpost/build-brief.md` is the brief the Lens was actually built from.

@@ -98,7 +98,7 @@ After each Level 1 answer, numbered dots appear on Moti's body and a short bilin
 
 ## Add the Hindi audio
 
-The two chimes (`sfx_right`, `sfx_wrong`) are included. The 16 Hindi voice lines are **not recorded yet**; until they are, every line shows as a caption.
+The two chimes (`sfx_right`, `sfx_wrong`) are included. The 16 Hindi voice lines are **not recorded** in this submission; every line shows as a Hindi and English caption. The recording script and the loader are ready.
 
 1. `node tools/audio-tools.mjs script` (or open `tools/recording-script.md`) lists each line to record. Record one MP3 or WAV per id and name the file exactly the id (e.g. `l1_a.mp3`). Put them in `Assets/Audio/`.
 2. Run `node tools/audio-tools.mjs index`. This writes `Assets/Scripts/audio/AudioIndex.ts` so `AudioManager` finds them by name. (Clips assigned by hand in the **Tracks** list also work.)

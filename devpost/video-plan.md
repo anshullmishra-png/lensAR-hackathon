@@ -4,7 +4,7 @@ Check the Devpost page for the required video length and format before recording
 
 ## Before you press record
 
-- [ ] Hindi audio recorded, named exactly by id (`onb_intro.mp3`, `l1_a.mp3`, ...), dropped into `Assets/Audio`, and checked in the preview that no line is cut off.
+- [x] Hindi audio: **not recorded** (decision made). The Lens shows every line as a Hindi and English caption; say "captions only, voice-over is next" if it comes up.
 - [ ] `Config.AUTOPLAY` is `false`.
 - [ ] `Config.DEMO_MODE`: keep `true` while recording so the wash timer takes 15 seconds, then say so on camera ("demo timer; the real one is 15 minutes"). Set it to `false` for the final submission build.
 - [ ] Preview set to the Spectacles device. Terminal ready in the repo folder.
