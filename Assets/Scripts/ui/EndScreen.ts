@@ -6,7 +6,7 @@ import {bus} from "../core/EventBus"
 import {Events, ScorePayload} from "../core/Events"
 import {scoreKeeper} from "../core/ScoreKeeper"
 import {TweenHelpers} from "../util/TweenHelpers"
-import {addText, COLOR_TEXT_DIM, makeInertSoon} from "./UiText"
+import {addText, COLOR_TEXT_DIM, makeInertSoon, COLOR_CARD, COLOR_CARD_EDGE, tintPlate, tintButton } from "./UiText"
 
 const W = Config.CARD_W
 const H = Config.END_H
@@ -25,6 +25,7 @@ export class EndScreen extends BaseScriptComponent {
     this.sceneObject.createComponent("Component.Canvas")
     const plate = this.sceneObject.createComponent(BackPlate.getTypeName()) as BackPlate
     plate.size = new vec2(W, H)
+    tintPlate(this, this.sceneObject, COLOR_CARD, COLOR_CARD_EDGE)
     const inner = W - 5
 
     const y = (v: number): number => v + LIFT
@@ -54,6 +55,8 @@ export class EndScreen extends BaseScriptComponent {
     row.setParent(this.sceneObject)
     row.getTransform().setLocalPosition(new vec3(0, -30 + LIFT, 0.6))
     const btn = row.createComponent(Button.getTypeName()) as Button
+    btn.setVariant({theme: "System 3.0", style: "Primary"})
+    tintButton(this, btn, 28, 8)
     btn.size = new vec3(28, 8, 1)
     const c = Content.end.playAgain
     addText(row, "LabelHi", Config.SIZE_BUTTON, 24, 3.2, 0, 1.2, undefined, 0.3).text = c.hi

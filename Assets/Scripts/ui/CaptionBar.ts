@@ -3,7 +3,7 @@ import {Config} from "../app/Config"
 import {LocalText} from "../content/ContentTypes"
 import {bus} from "../core/EventBus"
 import {Events, ShowCaptionPayload} from "../core/Events"
-import {addText, COLOR_TEXT_DIM, makeInertSoon} from "./UiText"
+import {addText, COLOR_TEXT_DIM, makeInertSoon, COLOR_CARD, COLOR_CARD_EDGE, tintPlate } from "./UiText"
 
 const W = Config.CARD_W + 4
 const H = 9
@@ -19,6 +19,7 @@ export class CaptionBar extends BaseScriptComponent {
     this.sceneObject.createComponent("Component.Canvas")
     const plate = this.sceneObject.createComponent(BackPlate.getTypeName()) as BackPlate
     plate.size = new vec2(W, H)
+    tintPlate(this, this.sceneObject, COLOR_CARD, COLOR_CARD_EDGE)
     this.hi = addText(this.sceneObject, "CaptionHi", Config.SIZE_BODY_HI - 6, W - 4, 4.2, 0, 1.8)
     this.en = addText(this.sceneObject, "CaptionEn", Config.SIZE_EN - 4, W - 4, 3.2, 0, -2.4, COLOR_TEXT_DIM)
 

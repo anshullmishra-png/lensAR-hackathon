@@ -6,7 +6,7 @@ import {Events} from "../core/Events"
 import {Log} from "../util/Log"
 import {TweenHelpers} from "../util/TweenHelpers"
 import {buildTick} from "./Shapes"
-import {addText, COLOR_TEXT_DIM, makeInertSoon} from "./UiText"
+import {addText, COLOR_TEXT_DIM, makeInertSoon, COLOR_CARD, COLOR_CARD_EDGE, tintPlate } from "./UiText"
 
 const W = Config.CARD_W
 const H = Config.DOSE_H
@@ -40,6 +40,7 @@ export class DoseCalendarCard extends BaseScriptComponent {
     this.sceneObject.createComponent("Component.Canvas")
     const plate = this.sceneObject.createComponent(BackPlate.getTypeName()) as BackPlate
     plate.size = new vec2(W, H)
+    tintPlate(this, this.sceneObject, COLOR_CARD, COLOR_CARD_EDGE)
 
     if (!this.boxMesh || !this.cellMaterial || !this.tickMaterial) {
       Log.error("DoseCalendarCard: boxMesh / materials are not assigned")

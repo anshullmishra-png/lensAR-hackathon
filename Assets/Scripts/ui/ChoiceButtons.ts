@@ -4,7 +4,7 @@ import {ChoiceOption} from "../content/ContentTypes"
 import {bus} from "../core/EventBus"
 import {Events, SetChoicesPayload} from "../core/Events"
 import {Log} from "../util/Log"
-import {addText} from "./UiText"
+import {addText, tintButton } from "./UiText"
 
 /** Up to 3 large pinchable buttons, each labelled Hindi over English. */
 @component
@@ -45,6 +45,8 @@ export class ChoiceButtons extends BaseScriptComponent {
     row.getTransform().setLocalPosition(new vec3(0, -index * (h + Config.BUTTON_GAP), 0))
 
     const btn = row.createComponent(Button.getTypeName()) as Button
+    btn.setVariant({theme: "System 3.0", style: "Primary"})
+    tintButton(this, btn, w, h)
     btn.size = new vec3(w, h, 1)
 
     // Label sits just in front of the button face so its glyphs are not clipped by it.

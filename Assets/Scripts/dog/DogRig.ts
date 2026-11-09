@@ -169,8 +169,8 @@ export class DogRig {
     this.jaw = this.node(h, "jaw", [0, 1.2, 7])
     this.part(this.jaw, "jawbone", "cream", [0, -0.2, 6], [7.4, 2.6, 11])
     this.tongue = this.part(this.jaw, "tongue", "pink", [0, 0.9, 6.5], [4.2, 1.3, 7])
-    this.anchors.jaw = this.node(this.jaw, "anchorJaw", [0, -1, 9])
-    this.anchors.mouth = this.node(h, "anchorMouth", [0, 3, 17])
+    this.anchors.jaw = this.node(this.jaw, "anchorJaw", [0, -4.5, 7])
+    this.anchors.mouth = this.node(h, "anchorMouth", [5, 3.5, 14.5])
 
     // Teeth: small white points that show when the lip is curled.
     for (const s of [-1, 1]) {

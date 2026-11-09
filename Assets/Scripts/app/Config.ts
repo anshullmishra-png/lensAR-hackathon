@@ -57,7 +57,7 @@ export const Config = {
   /** Text sizes (Lens Studio Text.size units). Hindi is larger because Devanagari reads smaller. */
   SIZE_TITLE_HI: 56,
   SIZE_BODY_HI: 44,
-  SIZE_EN: 34,
+  SIZE_EN: 40,
   SIZE_BUTTON: 38,
 
   /** Layout, cm. */

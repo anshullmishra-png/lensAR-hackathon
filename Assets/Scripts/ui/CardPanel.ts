@@ -4,7 +4,7 @@ import {LocalText} from "../content/ContentTypes"
 import {bus} from "../core/EventBus"
 import {Events, ShowCardPayload} from "../core/Events"
 import {TweenHelpers} from "../util/TweenHelpers"
-import {addText, COLOR_TEXT_DIM, makeInertSoon} from "./UiText"
+import {addText, COLOR_TEXT_DIM, makeInertSoon, COLOR_CARD, COLOR_CARD_EDGE, tintPlate } from "./UiText"
 
 /** The main floating card: Hindi large on top, English smaller underneath. */
 @component
@@ -20,6 +20,7 @@ export class CardPanel extends BaseScriptComponent {
     this.sceneObject.createComponent("Component.Canvas")
     const plate = this.sceneObject.createComponent(BackPlate.getTypeName()) as BackPlate
     plate.size = new vec2(w, h)
+    tintPlate(this, this.sceneObject, COLOR_CARD, COLOR_CARD_EDGE)
 
     const inner = w - 4
     this.titleHi = addText(this.sceneObject, "TitleHi", Config.SIZE_TITLE_HI, inner, 6, 0, 11)
