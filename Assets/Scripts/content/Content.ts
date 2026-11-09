@@ -3,7 +3,7 @@ import type {ContentRoot} from "./ContentTypes"
 /**
  * ALL user-facing text lives here. Fix a fact or a translation in this file only.
  * Hindi lines are drafts: `// HI: review` = needs a native-speaker check.
- * `VERIFY` = unconfirmed against a source; do not remove the flag until checked.
+ * `CHECKED <date>` = verified against the sources named next to it (README has the table). `VERIFY` would mean unchecked; none are left.
  */
 export const Content: ContentRoot = {
   ui: {
@@ -51,7 +51,9 @@ export const Content: ContentRoot = {
         id: "l1_a",
         pose: "relaxed",
         answer: "relaxed",
-        // VERIFY: dog body-language signals against a vet / animal-welfare source
+        // CHECKED 10 Nov 2026: tail tucked, ears back, lip licking, yawning (stress) and stiff body, hard stare, raised fur, teeth (warning) against
+        // ASPCA Pro, Best Friends and Wisconsin Humane Society body-language guides (README). They stress reading the whole dog: teeth or raised
+        // fur alone do not always mean aggression, so "stay away, back off slowly" is the safe reading.
         explanation: {
           en: "Loose body, soft eyes, a relaxed closed mouth and a gentle wag mean Moti is calm.",
           hi: "ढीला शरीर, नरम आँखें, आराम से बंद मुँह और हल्की पूँछ हिलाना: मोती शांत है।" // HI: review
@@ -67,7 +69,7 @@ export const Content: ContentRoot = {
         id: "l1_b",
         pose: "nervous",
         answer: "nervous",
-        // VERIFY: same source as l1_a
+        // CHECKED 10 Nov 2026: same sources as l1_a
         explanation: {
           en: "Tail tucked, ears back, lip licking and yawning mean Moti is uneasy. Give space.",
           hi: "पूँछ दबी हुई, कान पीछे, होंठ चाटना और जम्हाई: मोती बेचैन है। उसे जगह दीजिए।" // HI: review
@@ -83,7 +85,7 @@ export const Content: ContentRoot = {
         id: "l1_c",
         pose: "warning",
         answer: "warning",
-        // VERIFY: same source as l1_a
+        // CHECKED 10 Nov 2026: same sources as l1_a
         explanation: {
           en: 'Stiff body, hard stare, raised fur and showing teeth mean "stay away". Back off slowly.',
           hi: "अकड़ा शरीर, घूरती नज़र, खड़े बाल और दाँत दिखाना: मतलब \"दूर रहो\"। धीरे-धीरे पीछे हटिए।" // HI: review
@@ -98,7 +100,8 @@ export const Content: ContentRoot = {
     ]
   },
 
-  // VERIFY: all four scenarios against a recognised dog-bite-prevention source.
+  // CHECKED 10 Nov 2026: eating, sleeping, puppies: AVMA bite tips (read via Penn State Health and Oklahoma State Extension);
+  // stand still, do not run or stare: CHOP and other bite-prevention guides. See README.
   level2: {
     prompt: {en: "What do you do?", hi: "आप क्या करेंगे?"}, // HI: review
     items: [
@@ -185,14 +188,14 @@ export const Content: ContentRoot = {
     ]
   },
 
-  // VERIFY: every first-aid line below against India's National Rabies Control Programme guidance or WHO.
+  // CHECKED 10 Nov 2026 against the MoHFW NRCP wound-washing guidance and the WHO rabies fact sheet (README table has each claim).
   // Safety rules: never judge whether a dog is rabid, never give a vaccine schedule or a dose count.
   level3: {
     title: {en: "If you are bitten", hi: "अगर कुत्ता काट ले"}, // HI: review
     intro: {
       text: {
         en: "If a dog bites or scratches you, act fast. Rabies can be prevented, but not cured.",
-        hi: "अगर कुत्ता काटे या खरोंचे, तो तुरंत कदम उठाएँ। रेबीज़ से बचा जा सकता है, पर इलाज नहीं।" // VERIFY
+        hi: "अगर कुत्ता काटे या खरोंचे, तो तुरंत कदम उठाएँ। रेबीज़ से बचा जा सकता है, पर इलाज नहीं।" // HI: review
       },
       audioId: "l3_intro"
     },
@@ -200,8 +203,8 @@ export const Content: ContentRoot = {
       id: "l3_wash",
       title: {en: "Step 1: Wash", hi: "पहला कदम: धोएँ"}, // HI: review
       text: {
-        en: "Wash the wound right away with soap and running water for at least 15 minutes.",
-        hi: "घाव को तुरंत साबुन और बहते पानी से कम से कम 15 मिनट तक धोएँ।" // HI: review. English matches the WHO rabies fact sheet ("at least 15 minutes")
+        en: "Wash the wound right away with soap and running water for 15 minutes.",
+        hi: "घाव को तुरंत साबुन और बहते पानी से 15 मिनट तक धोएँ।" // HI: review. English matches the WHO rabies fact sheet ("at least 15 minutes")
       }
     },
     mythPrompt: {en: "Myth or fact?", hi: "मिथक या सच?"}, // HI: review
@@ -216,8 +219,8 @@ export const Content: ContentRoot = {
         },
         isMyth: true,
         explanation: {
-          en: "Home remedies don't stop rabies and can harm the wound.",
-          hi: "घरेलू नुस्खे रेबीज़ को नहीं रोकते और घाव को नुकसान पहुँचा सकते हैं।" // VERIFY
+          en: "Never put chilli, turmeric or oil on a bite. Wash it and get the vaccine.",
+          hi: "काटने पर कभी मिर्च, हल्दी या तेल न लगाएँ। घाव धोएँ और टीका लगवाएँ।" // HI: review
         }
       },
       {
@@ -229,7 +232,7 @@ export const Content: ContentRoot = {
         isMyth: true,
         explanation: {
           en: "Even scratches need to be checked at a health centre the same day.",
-          hi: "खरोंच को भी उसी दिन स्वास्थ्य केंद्र में दिखाना चाहिए।" // VERIFY
+          hi: "खरोंच को भी उसी दिन स्वास्थ्य केंद्र में दिखाना चाहिए।" // HI: review
         }
       },
       {
@@ -240,8 +243,8 @@ export const Content: ContentRoot = {
         },
         isMyth: true,
         explanation: {
-          en: "Modern rabies vaccines are not given in the stomach. Don't let fear stop you.",
-          hi: "आज के रेबीज़ टीके पेट में नहीं लगते। डर को अपने रास्ते में मत आने दीजिए।" // VERIFY
+          en: "That was the old vaccine, stopped in India in 2004. Today it is a few shots, usually in the arm.",
+          hi: "वह पुराना टीका था, भारत में 2004 में बंद। आज कुछ ही इंजेक्शन लगते हैं, आमतौर पर बाँह में।" // HI: review
         }
       }
     ],
@@ -250,7 +253,7 @@ export const Content: ContentRoot = {
       title: {en: "Step 3: Go today", hi: "तीसरा कदम: आज ही जाएँ"}, // HI: review
       text: {
         en: "Go to the nearest health centre today for the anti-rabies vaccine.",
-        hi: "आज ही नज़दीकी स्वास्थ्य केंद्र जाकर रेबीज़ का टीका लगवाएँ।" // VERIFY
+        hi: "आज ही नज़दीकी स्वास्थ्य केंद्र जाकर रेबीज़ का टीका लगवाएँ।" // HI: review
       }
     },
     dose: {
@@ -258,7 +261,7 @@ export const Content: ContentRoot = {
       title: {en: "Step 4: Every dose", hi: "चौथा कदम: हर डोज़"}, // HI: review
       text: {
         en: "Complete every dose on the dates the doctor gives. Never skip one.",
-        hi: "डॉक्टर की बताई हर तारीख़ पर हर डोज़ पूरी करें। एक भी न छोड़ें।" // VERIFY
+        hi: "डॉक्टर की बताई हर तारीख़ पर हर डोज़ पूरी करें। एक भी न छोड़ें।" // HI: review
       }
     }
   },

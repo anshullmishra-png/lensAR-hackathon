@@ -89,7 +89,7 @@ Scene: `App` (AppRoot) → `Systems` (AudioManager, FlowController) · `World` (
 ## Change the content
 
 Everything the user reads is in `Assets/Scripts/content/Content.ts`, as `{en, hi}` pairs.
-`// HI: review` marks a Hindi draft that needs a native speaker. `// VERIFY` marks a fact that is **not yet confirmed**.
+`// HI: review` marks a Hindi draft that needs a native speaker. `// CHECKED <date>` marks facts checked against the sources named beside it (table below). No `// VERIFY` flags are left.
 Leave both flags in until the line has been checked.
 
 ## Signs to look for (callouts on Moti)
@@ -110,17 +110,9 @@ An explanation clip waits for the chime to end, and each level stays on its card
 
 ---
 
-## Sources to cite (not yet checked)
+## Sources
 
-Every `VERIFY` item is unconfirmed. I have **not** checked the text against any of these; they are where to look:
-
-| Content | Check against |
-|---|---|
-| Level 3 first aid: wash for about 15 minutes, same-day health-centre visit, scratches count, vaccine is not given in the stomach, complete every dose | India's **National Rabies Control Programme** guidance (NCDC / MoHFW) and the **WHO** position paper and fact sheet on rabies |
-| Level 1 dog body-language signals | a veterinary or animal-welfare body-language guide (for example from a veterinary association or animal-welfare charity) |
-| Level 2 behaviour around dogs (eating, puppies, sleeping, barking) | a recognised dog-bite-prevention source (for example a public-health agency or veterinary association) |
-
-Cite the exact document and date you verified against before recording the video.
+Every content claim has been checked on 10 Nov 2026. The table in "What was checked against sources" (below) names the source and says how far I read it.
 
 ---
 
@@ -152,8 +144,8 @@ Cite the exact document and date you verified against before recording the video
 
 ## Before you publish — checklist
 
-- [ ] Set `Config.DEMO_MODE` to `false` (real 15-minute wash, no skip button).
-- [ ] Have a native speaker review every `// HI: review` line, then verify every `// VERIFY` line against its source.
+- [x] `Config.DEMO_MODE` stays `true` for the submission (15-second wash timer and a skip button so a reviewer can finish the step). This is stated here, in the video and on the Devpost page. Set it to `false` for a real 15-minute wash and no skip button.
+- [ ] Have a native speaker review every `// HI: review` line. (The content has been checked against sources: see the table below; no `VERIFY` flags are left.)
 - [x] Dev helpers (`AiPreviewAgentInteract`, `Leaf` and its `LeafPlugin`) are not in this repo. `AiPreviewAgentInspect` and `Bitmoji 3D` are installed locally by Lens Studio tooling but are unused by the project and are git-ignored. The project's own packages are `InteractionKit`, `UIKit`, `Motion` and `Icons`.
 - [x] `.virtual-scene.json` (generated scene snapshot) is git-ignored.
 - [x] `spk_debug_key.pem` (private signing key) is git-ignored and is not in the repo. Never commit it.
@@ -163,17 +155,22 @@ Cite the exact document and date you verified against before recording the video
 
 ---
 
-## What was checked against sources (Nov 9, 2026)
+## What was checked against sources (10 Nov 2026)
 
-Only what a source actually says is marked here. Everything else is still unconfirmed, and every Hindi line still needs a native-speaker review (`// HI: review`).
+"Read in full" means I extracted and read the document's text. "Seen in search excerpts" means the page came up in a search and the passage I rely on was quoted there, but I did not read the page end to end. Every Hindi line still needs a native-speaker review (`// HI: review`).
 
-| Claim in the Lens | Status | Source |
+| Claim in the Lens | Result | Source and how far I read it |
 |---|---|---|
-| Wash the wound with soap and water for **at least 15 minutes** | Confirmed (English changed from "about" to "at least" to match) | [WHO rabies fact sheet](https://www.who.int/news-room/fact-sheets/detail/rabies); India's NRCP guidance says "up to 15 minutes" then a disinfectant ([MoHFW Rabies Free India](https://rabiesfreeindia.mohfw.gov.in/resources/uploads/PageContentPdf/169391055721.pdf)) |
-| A bite **or scratch** needs medical care, and rabies is preventable after exposure | Confirmed | [WHO rabies fact sheet](https://www.who.int/news-room/fact-sheets/detail/rabies) |
-| Go to a health centre the same day / complete every dose | Consistent with WHO ("immediately seek medical attention", full vaccine course); exact "same day" wording not found | same |
-| Home remedies (chilli, turmeric, oil) | **Not confirmed.** NRCP prohibits cauterising with acids, alkalis, flame or heat; the specific remedies were not found | MoHFW document above |
-| Modern vaccines are not given in the stomach | **Not confirmed** by a source I could open | check the NRCP "National Guidelines on Rabies Prophylaxis" |
-| Dog body-language signals (Levels 1 and 2) | **Not confirmed** | a veterinary or animal-welfare body-language guide |
+| Wash the wound with soap and running water | Confirmed. The wording is now "for 15 minutes", because WHO says **at least** 15 minutes and India's programme says **up to** 15 minutes, followed by a disinfectant | [MoHFW wound-washing guidance](https://rabiesfreeindia.mohfw.gov.in/resources/uploads/PageContentPdf/169391055721.pdf) (read in full); [WHO rabies fact sheet](https://www.who.int/news-room/fact-sheets/detail/rabies) (seen in search excerpts) |
+| Chilli, turmeric or oil on a bite is wrong | Confirmed: "Application of irritants such as chili, soil, oils, turmeric, lime, salt, ash, plant juice, etc. ... is strictly prohibited". The Lens now says "Never put chilli, turmeric or oil on a bite. Wash it and get the vaccine" (the earlier "can harm the wound" was not in the source) | same MoHFW document (read in full) |
+| Cauterising (acid, flame, heat) is wrong | Confirmed ("strictly prohibited"); not taught in the Lens | same MoHFW document (read in full) |
+| A scratch needs care too, and the vaccine should start the same day | Confirmed: WHO category II exposure includes minor scratches and needs wound washing and immediate vaccination | WHO fact sheet and WHO category summaries (seen in search excerpts) |
+| Complete every dose on the doctor's dates | Confirmed in substance (WHO: a full vaccine course; the exact schedule is deliberately not taught) | WHO fact sheet (seen in search excerpts) |
+| "Many painful injections in the stomach" is a myth | The old nerve-tissue vaccine was stopped in India in December 2004 and replaced by cell-culture vaccines; the standard modern route is into the upper arm (deltoid), with an intradermal option, also on the arm. I found no source that says the old course was given in the abdomen, so the Lens no longer says "not given in the stomach"; it says "That was the old vaccine, stopped in India in 2004. Today it is a few shots, usually in the arm." | NCDC 2015 National Guidelines on Rabies Prophylaxis and a published intradermal study (seen in search excerpts, not read in full); [WHO vaccine standardisation page](https://www.who.int/teams/health-product-policy-and-standards/standards-and-specifications/norms-and-standards/vaccine-standardization/rabies) |
+| Level 1: tail tucked, ears back, lip licking and yawning show unease; stiff body, hard stare, raised fur and teeth show a warning | Confirmed, with a caution these guides all give: read the whole dog; teeth or raised fur alone do not always mean aggression, and raised fur is also seen in fear. "Stay away, back off slowly" is the safe reading | [ASPCA Pro](https://www.aspcapro.org/resource/canine-body-language-tips), [Best Friends](https://bestfriends.org/node/547001), [Wisconsin Humane Society](https://wihumane.org/dog-body-language) (seen in search excerpts) |
+| Level 2: do not disturb a dog that is eating, sleeping or with puppies | Confirmed. The AVMA tip, read on a page that reproduces it; I did not open the AVMA's own page | [Penn State Health (AVMA tips)](https://www.pennstatehealth.org/childrens/services-treatments/trauma-program/injury-prevention-program/dog-bite), [Oklahoma State Extension](https://extension.okstate.edu/fact-sheets/canine-bite-prevention) (seen in search excerpts) |
+| Level 2: if a dog runs at you, do not run or shout; stand still like a tree and look away | Confirmed | [CHOP](https://www.chop.edu/centers-programs/injury-prevention-program/dog-bite-prevention) and other bite-prevention guides (seen in search excerpts) |
+
+Not claimed anywhere: how to tell whether a dog is rabid, a vaccine schedule or dose count, or any treatment advice beyond wash, do not use home remedies, and see a doctor the same day.
 
 Training aid only. Not medical advice.

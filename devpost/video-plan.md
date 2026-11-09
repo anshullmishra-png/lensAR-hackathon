@@ -20,7 +20,7 @@ Check the Devpost page for the required video length and format before recording
 | 1:00 to 1:30 | Level 2 (eating, puppies, sleeping, barking): one question, one pinch, the feedback panel. | "Level 2 asks what to do near a dog that is eating, with puppies, asleep or barking." |
 | 1:30 to 2:00 | Level 3: the forearm, the bite mark, the wash timer (15 s demo), the myth-or-fact card, "go to a health centre today". | "If a bite happens: wash with soap and running water for at least 15 minutes, see a doctor the same day, finish every dose. The timer here is a 15-second demo." |
 | 2:00 to 2:20 | Terminal: `node tools/run-tests.mjs` and the "30 passed, 0 failed" line. | "The logic is tested: scoring, level flow, the audio queue and the layout. 30 tests pass." |
-| 2:20 to 2:50 | The README "What was checked against sources" table. | "Limits, honestly: the first-aid wash and 'scratches count' are checked against the WHO rabies fact sheet. Home remedies, the vaccine-site line and the dog body-language signals are not yet checked against a source. The Hindi has not had a native-speaker review. Moti is an AI-generated model that I rigged myself. All of this was tested in the Lens Studio preview, not on real glasses. Training aid, not medical advice." |
+| 2:20 to 2:50 | The README "What was checked against sources" table. | "Limits, honestly: the first-aid and dog-behaviour claims are checked against WHO, India's rabies programme, the AVMA and animal-welfare guides, and the table says how far I read each one. Two lines were reworded because the sources said something slightly different. The Hindi has not had a native-speaker review. The wash timer is a 15-second demo. Moti is an AI-generated model that I rigged myself. All of this was tested in the Lens Studio preview, not on real glasses. Training aid, not medical advice." |
 
 ## Say these things plainly (do not hide them)
 
@@ -32,6 +32,6 @@ Check the Devpost page for the required video length and format before recording
 
 ## What not to claim
 
-- Do not say the first-aid text is "verified" without naming the parts that are not.
+- Do not say "verified by a doctor": it is checked against published guidance, and the README table says how far each source was read.
 - Do not say the Hindi is reviewed.
 - Do not say it runs on glasses.

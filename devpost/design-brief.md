@@ -58,7 +58,7 @@ Each one can be checked in Lens Studio's preview.
 
 ## Risks and open questions
 - The entrant's words were: "it's about the feedback loop, once trained, enhance the answer." This is read as: after being told what was wrong and shown what to look for, the person can play again and answer better. **To confirm with the entrant.**
-- The body-language signals (Levels 1 and 2) are not yet checked against a veterinary or animal-welfare source.
+- The body-language signals (Levels 1 and 2) were not checked against a veterinary or animal-welfare source when this brief was written. **Update, 10 Nov 2026:** they have now been checked; see the README table.
 - First-aid facts: washing for at least 15 minutes and treating scratches as bites are checked against WHO and India's rabies programme; the home-remedy and "not in the stomach" lines are not yet confirmed.
 - Every Hindi line still needs a native-speaker review.
 - The Hindi voice-over has not been recorded yet.

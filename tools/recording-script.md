@@ -41,20 +41,20 @@ Order matters: record in this order, in one take or one file per line.
     Meaning: If a dog bites or scratches you, act fast. Rabies can be prevented, but not cured.
 
 10. **l3_wash**
-    Hindi: घाव को तुरंत साबुन और बहते पानी से कम से कम 15 मिनट तक धोएँ।
-    Meaning: Wash the wound right away with soap and running water for at least 15 minutes.
+    Hindi: घाव को तुरंत साबुन और बहते पानी से 15 मिनट तक धोएँ।
+    Meaning: Wash the wound right away with soap and running water for 15 minutes.
 
 11. **m_remedy**
-    Hindi: घरेलू नुस्खे रेबीज़ को नहीं रोकते और घाव को नुकसान पहुँचा सकते हैं।
-    Meaning: Home remedies don't stop rabies and can harm the wound.
+    Hindi: काटने पर कभी मिर्च, हल्दी या तेल न लगाएँ। घाव धोएँ और टीका लगवाएँ।
+    Meaning: Never put chilli, turmeric or oil on a bite. Wash it and get the vaccine.
 
 12. **m_scratch**
     Hindi: खरोंच को भी उसी दिन स्वास्थ्य केंद्र में दिखाना चाहिए।
     Meaning: Even scratches need to be checked at a health centre the same day.
 
 13. **m_stomach**
-    Hindi: आज के रेबीज़ टीके पेट में नहीं लगते। डर को अपने रास्ते में मत आने दीजिए।
-    Meaning: Modern rabies vaccines are not given in the stomach. Don't let fear stop you.
+    Hindi: वह पुराना टीका था, भारत में 2004 में बंद। आज कुछ ही इंजेक्शन लगते हैं, आमतौर पर बाँह में।
+    Meaning: That was the old vaccine, stopped in India in 2004. Today it is a few shots, usually in the arm.
 
 14. **l3_go**
     Hindi: आज ही नज़दीकी स्वास्थ्य केंद्र जाकर रेबीज़ का टीका लगवाएँ।
