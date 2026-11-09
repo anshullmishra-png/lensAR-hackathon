@@ -114,6 +114,10 @@ An explanation clip waits for the chime to end, and each level stays on its card
 
 Every content claim was compared with published guidance on 10 Nov 2026, but **only the MoHFW wound-washing document was read in full**. The WHO, NCDC and dog-behaviour sources were seen in search excerpts, not read end to end. This is not "fully verified". The table in "What was checked against sources" (below) names each source and says how far I read it.
 
+## Lens Studio version
+
+Built and tested in **Lens Studio 5.24.1 (build 26100516)**; the project file records that version. Open it with 5.24.1 or newer: Lens Studio generally cannot open a project that was saved by a newer version, so an older build such as 5.23.2 may refuse it. Everything was run in the Lens Studio preview, not on glasses.
+
 ## Where the dog model comes from (and its terms)
 
 - **Generator:** Moti's body is `Assets/GeneratedMeshes/MotiDog.glb`, made on 9 Nov 2026 with **SPECS Text-to-3D**, the text-to-3D service at `api.specs.com` (a Specs Inc. API), called through the signed-in Lens Studio session by the Claude Code `build-mesh` skill. Settings: `output_quality: balanced`; the preview and reconstruction stages were left at their default (`balanced`).
