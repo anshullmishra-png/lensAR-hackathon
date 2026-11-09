@@ -73,12 +73,12 @@ export interface PoseDef {
 }
 
 export const DogPoses: {[name: string]: PoseDef} = {
-  relaxed: {scale: [1, 1, 1], pitchDeg: 0, rollDeg: 0, xOffsetCm: 0, yOffsetCm: 0, look: true, loop: "sway", loopAmp: 3, loopPeriod: 0.9, rig: rp({earBack: 0.1, tailPitch: 35, tailCurl: 6, wagAmp: 30, wagHz: 1.7, jaw: 0.18, tongue: 0.9, eye: 0.62})},
+  relaxed: {scale: [1, 1, 1], pitchDeg: 0, rollDeg: 0, xOffsetCm: 0, yOffsetCm: 0, look: true, loop: "sway", loopAmp: 3, loopPeriod: 0.9, rig: rp({earBack: 0.1, tailPitch: 35, tailCurl: 6, wagAmp: 30, wagHz: 1.7, jaw: 0.18, tongue: 0.9, eye: 1})},
   nervous: {scale: [1, 0.92, 1], pitchDeg: -8, rollDeg: 0, xOffsetCm: 0, yOffsetCm: -1.5, look: true, loop: "shake", loopAmp: 0.5, loopPeriod: 0.16, rig: rp({earBack: 1, tailPitch: -78, tailCurl: -16, eye: 1.1, eyeRing: 1, headPitch: 14, lick: 1, yawn: 1})},
-  warning: {scale: [1.06, 1.06, 1.06], pitchDeg: 9, rollDeg: 0, xOffsetCm: 0, yOffsetCm: 0, look: true, loop: "none", loopAmp: 0, loopPeriod: 1, rig: rp({earForward: 0.85, tailPitch: 64, tailCurl: 3, wagAmp: 4, wagHz: 0.7, jaw: 0.3, teeth: 1, eye: 0.62, hackles: 1, headPitch: 9})},
-  eating: {scale: [1, 0.9, 1.05], pitchDeg: 14, rollDeg: 0, xOffsetCm: 0, yOffsetCm: 3, look: false, loop: "bob", loopAmp: 0.7, loopPeriod: 0.6, rig: rp({earBack: 0.2, tailPitch: 28, tailCurl: 5, wagAmp: 14, wagHz: 1.2, eye: 0.8, headPitch: 38})},
+  warning: {scale: [1.06, 1.06, 1.06], pitchDeg: 9, rollDeg: 0, xOffsetCm: 0, yOffsetCm: 0, look: true, loop: "none", loopAmp: 0, loopPeriod: 1, rig: rp({earForward: 0.85, tailPitch: 64, tailCurl: 3, wagAmp: 4, wagHz: 0.7, jaw: 0.3, teeth: 1, eye: 0.7, hackles: 1, headPitch: 9})},
+  eating: {scale: [1, 0.9, 1.05], pitchDeg: 14, rollDeg: 0, xOffsetCm: 0, yOffsetCm: 3, look: false, loop: "bob", loopAmp: 0.7, loopPeriod: 0.6, rig: rp({earBack: 0.2, tailPitch: 28, tailCurl: 5, wagAmp: 14, wagHz: 1.2, eye: 1, headPitch: 38})},
   sleeping: {scale: [1, 1, 1], pitchDeg: 0, rollDeg: 85, xOffsetCm: 30, yOffsetCm: 9, look: false, loop: "bob", loopAmp: 0.4, loopPeriod: 2.8, rig: rp({earBack: 0.35, tailPitch: 4, tailCurl: -4, eye: 0.05, headPitch: 10})},
-  with_puppies: {scale: [1, 1, 1], pitchDeg: -3, rollDeg: 0, xOffsetCm: 0, yOffsetCm: 0, look: true, loop: "sway", loopAmp: 2, loopPeriod: 1.4, rig: rp({earBack: 0.05, tailPitch: 38, tailCurl: 6, wagAmp: 22, wagHz: 1.4, jaw: 0.14, tongue: 0.5, eye: 0.75})},
+  with_puppies: {scale: [1, 1, 1], pitchDeg: -3, rollDeg: 0, xOffsetCm: 0, yOffsetCm: 0, look: true, loop: "sway", loopAmp: 2, loopPeriod: 1.4, rig: rp({earBack: 0.05, tailPitch: 38, tailCurl: 6, wagAmp: 22, wagHz: 1.4, jaw: 0.14, tongue: 0.5, eye: 1})},
   barking: {scale: [1.05, 1.05, 1.05], pitchDeg: 6, rollDeg: 0, xOffsetCm: 0, yOffsetCm: 0, look: true, loop: "bob", loopAmp: 1.6, loopPeriod: 0.34, rig: rp({earForward: 0.7, tailPitch: 56, tailCurl: 3, wagAmp: 5, wagHz: 0.9, eye: 1.15, bark: 1, headPitch: 4})}
 }
 

@@ -19,6 +19,10 @@ type Vec = [number, number, number]
 const MX = 0.05
 /** The painted eyes, measured from the mesh: [x, y, z] of each eye centre, set just inside the surface. */
 const EYE_POS: Vec[] = [[-0.04, 0.273, 0.403], [0.078, 0.252, 0.358]]
+/** How far each eye's lids sit forward of the eye centre, so the lid caps clear the skin on both sides of the face. */
+const LID_OUT: number[] = [0.014, 0.004]
+/** Degrees added to each eye's upper lid edge: the two painted eyes are not equally far from their lid pivots, and without this one eye squints more than the other. */
+const LID_BIAS_DEG: number[] = [0, 30]
 
 // Colours picked to sit next to the baked fur texture (forehead about 0.51, 0.25, 0.10; back about 0.59, 0.30, 0.14).
 const FUR_DARK: Vec = [0.55, 0.26, 0.1]
@@ -28,7 +32,7 @@ const SCLERA: Vec = [1, 0.97, 0.92]
 const IRIS: Vec = [0.14, 0.07, 0.035]
 const PUPIL: Vec = [0.02, 0.02, 0.025]
 const GLINT: Vec = [1, 1, 1]
-const TOOTH: Vec = [0.97, 0.95, 0.88]
+const TOOTH: Vec = [1, 0.97, 0.9]
 const MOUTH: Vec = [0.3, 0.09, 0.1]
 const TONGUE: Vec = [0.88, 0.38, 0.45]
 
@@ -352,14 +356,19 @@ export class DogRealistic implements DogRigApi {
       const glint = this.part(eye, "glint", this.sphereFine, "glint", [0.009, 0.011, 0.032], [0.011, 0.011, 0.009])
       // Eyelids are caps that hug the eyeball (a hair larger than it) and turn about the eye centre.
       // Upper: the cap sits on top of the eye and tips forward to close. Lower: the same cap, flipped, tips up.
-      const upperPivot = this.node(eye, "upperLidPivot", [0, 0, 0])
+      const upperPivot = this.node(eye, "upperLidPivot", [0, 0, LID_OUT[k]])
       this.part(upperPivot, "upperLid", this.lidMesh, "lid", [0, 0, 0], [0.067, 0.067, 0.067])
-      const lowerPivot = this.node(eye, "lowerLidPivot", [0, 0, 0])
+      const lowerPivot = this.node(eye, "lowerLidPivot", [0, 0, LID_OUT[k]])
       const lowerFlip = this.node(lowerPivot, "flip", [0, 0, 0])
       lowerFlip.getTransform().setLocalRotation(quat.fromEulerAngles(Math.PI, 0, 0))
       this.part(lowerFlip, "lowerLid", this.lidMesh, "lid", [0, 0, 0], [0.066, 0.066, 0.066])
       upperPivot.enabled = false
       lowerPivot.enabled = false
+      // The dog's own painted eyes (big, glossy, with a highlight) are the friendly part of his face, so the 3D eyeball is
+      // not drawn over them. Only the lids are used: to narrow the eyes (glare, drowsy) or close them (sleep).
+      for (const ball of [sclera, iris, pupil, glint]) {
+        ball.enabled = false
+      }
       this.eyes.push({side: s, iris, pupil, glint, upper: upperPivot, lower: lowerPivot, sclera})
       if (s > 0) {
         this.anchors.eyes = eye
@@ -379,10 +388,10 @@ export class DogRealistic implements DogRigApi {
       [MX + 0.011, 0.474, 0.018], [MX + 0.026, 0.466, 0.02], [MX + 0.042, 0.447, 0.034]
     ]
     for (const [x, z, len] of row) {
-      const up = this.part(head, "toothUp", this.box, "tooth", this.inHead([x, 0.166, z]), [0.0001, 0.0001, 0.0001])
+      const up = this.part(head, "toothUp", this.sphere, "tooth", this.inHead([x, 0.166, z]), [0.0001, 0.0001, 0.0001])
       up.enabled = false
       this.teethUpper.push(up)
-      const down = this.part(jaw, "toothLow", this.box, "tooth", this.inJaw([MX + (x - MX) * 0.9, 0.152, z - 0.012]), [0.0001, 0.0001, 0.0001])
+      const down = this.part(jaw, "toothLow", this.sphere, "tooth", this.inJaw([MX + (x - MX) * 0.9, 0.152, z - 0.012]), [0.0001, 0.0001, 0.0001])
       down.enabled = false
       this.teethLower.push(down)
       up.getTransform().setLocalRotation(quat.fromEulerAngles(0, 0, 0))
@@ -501,8 +510,8 @@ export class DogRealistic implements DogRigApi {
     for (const set of [this.teethUpper, this.teethLower]) {
       for (const tooth of set) {
         const len = (tooth as unknown as {len: number}).len
-        const h = Math.max(0.0001, len * teethOn)
-        const w = Math.max(0.0001, 0.013 * teethOn)
+        const h = Math.max(0.0001, len * 1.7 * teethOn)
+        const w = Math.max(0.0001, 0.011 * teethOn)
         const lower = set === this.teethLower
         tooth.enabled = teethOn > 0.03
         tooth.getTransform().setLocalScale(new vec3(w, h, w))
@@ -520,25 +529,22 @@ export class DogRealistic implements DogRigApi {
     const hard = smooth(0.3, 0.9, p.teeth) // warning: a narrowed, glaring stare
     const upperEdge = Math.max(-80, Math.min(90, 55 - 110 * (1 - eyeOpen)))
     const lowerEdge = -70 + 55 * Math.max(0, Math.min(1, (1 - eyeOpen) / 0.9))
-    const upperOn = upperEdge < 62
+    // Lids appear only when they really cover the eye (glare, drowsy, asleep); otherwise the painted eyes show untouched.
+    const upperOn = upperEdge < 40
     const lowerOn = lowerEdge > -58
     // The glare is made by slanting the upper lid so its inner end sits lower than its outer end (no extra brow shape).
     const slant = 17 * hard
-    const ring = Math.max(p.eyeRing, smooth(1.1, 1.4, eyeOpen) * 0.7)
-    for (const e of this.eyes) {
+    this.eyes.forEach((e, k) => {
       e.upper.enabled = upperOn
       e.lower.enabled = lowerOn
       if (upperOn) {
-        e.upper.getTransform().setLocalRotation(quat.fromEulerAngles((10 - upperEdge) * DEG, 0, e.side * slant * DEG))
+        const edge = Math.min(85, upperEdge + LID_BIAS_DEG[k])
+        e.upper.getTransform().setLocalRotation(quat.fromEulerAngles((10 - edge) * DEG, 0, e.side * slant * DEG))
       }
       if (lowerOn) {
         e.lower.getTransform().setLocalRotation(quat.fromEulerAngles(-(lowerEdge + 10) * DEG, 0, 0))
       }
-      const irisScale = 0.052 * (1 - 0.2 * ring)
-      e.iris.getTransform().setLocalScale(new vec3(irisScale, irisScale, 0.04))
-      e.pupil.getTransform().setLocalScale(new vec3(0.03 * (1 - 0.12 * ring), 0.03 * (1 - 0.12 * ring), 0.024))
-      e.glint.enabled = upperEdge > -40
-    }
+    })
 
     // Ears: relaxed, pricked forward, or pinned back and out.
     const earPitch = p.earForward * 20 - p.earBack * 52

@@ -139,11 +139,14 @@ def soften_muzzle(png_bytes, P, UV, I):
         if cen[2] > 0.38 and 0.125 < cen[1] < 0.19 and abs(cen[0] - 0.05) < 0.1:
             poly = [(float(UV[i][0]) * W, float(UV[i][1]) * H) for i in (a, b2, c)]
             d.polygon(poly, fill=255)
+    # Feather the edge a little so the lightened area has no hard outline.
+    from PIL import ImageFilter
+    mask = mask.filter(ImageFilter.GaussianBlur(2.0))
     arr = np.array(im).astype(float)
     m = np.array(mask).astype(float) / 255.0
     lum = arr[..., :3].mean(axis=2)
     dark = np.clip((135.0 - lum) / 70.0, 0, 1)
-    alpha = (m * dark * 0.85)[..., None]
+    alpha = (m * dark * 0.5)[..., None]
     tan = np.array([208.0, 158.0, 108.0])
     target = tan[None, None, :] * (0.78 + 0.4 * (lum / 255.0))[..., None]
     arr[..., :3] = arr[..., :3] * (1 - alpha) + target * alpha
