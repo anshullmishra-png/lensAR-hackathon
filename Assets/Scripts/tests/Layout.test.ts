@@ -65,6 +65,16 @@ test("Layout: when Moti turns toward the viewer and grows for the signs, he stil
   assert(headTop >= -VIEW_HALF_H_DEG, `focused Moti's head is ${(-headTop).toFixed(1)} deg above eye level, outside the view`)
 })
 
+test("Layout: the legend next to Moti stays inside the view, above his head", () => {
+  // Text is about 6 cm tall above its anchor line. Callout heights are cm above the floor.
+  const legendTop = Config.CALLOUT_HEADER_Y + 6 - Config.EYE_TO_FLOOR
+  const topAngle = Math.atan2(legendTop, Config.DOG_DISTANCE) * DEG
+  assert(topAngle <= VIEW_HALF_H_DEG, `the legend's top is ${topAngle.toFixed(1)} deg above eye level, outside the view (${VIEW_HALF_H_DEG} deg)`)
+  const lastRow = Config.CALLOUT_FIRST_ROW_Y - 4 * Config.CALLOUT_ROW_STEP
+  const focusedHead = Config.DOG_HEIGHT * Config.DOG_FOCUS_SCALE
+  assert(lastRow - 6 > focusedHead, `the last legend row (${lastRow} cm) would touch Moti's head when he grows (${focusedHead.toFixed(0)} cm)`)
+})
+
 test("Layout: the captions sit above the question card, out of the dog's way", () => {
   const y = Config.UI_Y
   assert(y.captions - 4.5 > y.card + Config.CARD_H / 2 - 1, "captions should be above the card")

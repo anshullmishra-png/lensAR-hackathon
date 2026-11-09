@@ -41,6 +41,10 @@ export function validate(content: ContentRoot): string[] {
   checkText("ui.levelOf", content.ui.levelOf)
   checkText("ui.next", content.ui.next)
   checkText("ui.skipDemo", content.ui.skipDemo)
+  checkText("ui.lookCarefully", content.ui.lookCarefully)
+  for (const part of ["ears", "eyes", "mouth", "tail", "fur"] as const) {
+    checkText(`ui.parts.${part}`, content.ui.parts[part])
+  }
   checkText("onboarding.title", content.onboarding.title)
   checkText("onboarding.intro.text", content.onboarding.intro.text)
   checkText("onboarding.start", content.onboarding.start)

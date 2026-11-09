@@ -1,7 +1,8 @@
+import {Config} from "../app/Config"
 import {Content} from "../content/Content"
-import {Signal} from "../content/ContentTypes"
+import {LocalText, Signal} from "../content/ContentTypes"
 import {bus} from "../core/EventBus"
-import {AnswerResultPayload, Events} from "../core/Events"
+import {AnswerResultPayload, Events, SetChoicesPayload} from "../core/Events"
 import {addText, COLOR_TEXT_DIM} from "../ui/UiText"
 import {DogRigApi} from "./DogRigApi"
 
@@ -25,12 +26,14 @@ const ANCHORS: {[part: string]: [number, number, number]} = {
   tail: [11, 28, -22]
 }
 
-const MAX_SLOTS = 4
+const MAX_SLOTS = 5
+/** The neutral dots shown with each Level 1 question: where to look, not what it means. */
+const LOOK_PARTS = ["ears", "eyes", "mouth", "tail", "fur"] as const
 const LEGEND_X = 0
 const LEGEND_Z = 0
-const HEADER_Y = 134
-const FIRST_ROW_Y = 116
-const ROW_STEP = 13.5
+const HEADER_Y = Config.CALLOUT_HEADER_Y
+const FIRST_ROW_Y = Config.CALLOUT_FIRST_ROW_Y
+const ROW_STEP = Config.CALLOUT_ROW_STEP
 const DOT_CM = 4.2
 const DARK = new vec4(0.08, 0.08, 0.1, 1)
 
@@ -69,6 +72,7 @@ export class DogCallouts {
     }
     this.root.enabled = false
 
+    bus.on(Events.SET_CHOICES, (p: SetChoicesPayload) => this.onQuestion(p.questionId))
     bus.on(Events.ANSWER_RESULT, (p: AnswerResultPayload) => this.onAnswer(p.questionId))
     bus.on(Events.HIDE_CARD, () => this.hide())
     bus.on(Events.DOG_SET_POSE, () => this.hide())
@@ -121,7 +125,16 @@ export class DogCallouts {
     if (!item || !item.signals || item.signals.length === 0) {
       return
     }
-    this.show(item.signals)
+    this.show(item.signals, Content.ui.lookFor)
+  }
+
+  /** With every Level 1 question: dots on the parts to watch, named neutrally so they do not give the answer away. */
+  private onQuestion(questionId: string): void {
+    if (!Content.level1.items.some((it) => it.id === questionId)) {
+      return
+    }
+    const parts = Content.ui.parts
+    this.show(LOOK_PARTS.map((id) => ({id, text: parts[id]})), Content.ui.lookCarefully)
   }
 
   /** Where to put the dot for a body part: on the real part when the dog is built from parts, else a fixed spot. */
@@ -136,7 +149,9 @@ export class DogCallouts {
     return new vec3(a[0], a[1], a[2])
   }
 
-  private show(signals: Signal[]): void {
+  private show(signals: Signal[], header: LocalText): void {
+    this.header.text = header.hi
+    this.headerEn.text = header.en
     this.slots.forEach((slot, i) => {
       const sig = signals[i]
       const on = !!sig

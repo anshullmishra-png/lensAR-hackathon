@@ -12,7 +12,15 @@ export const Content: ContentRoot = {
     levelOf: {en: "Level {n} of {total}", hi: "स्तर {n} / {total}"}, // HI: review
     next: {en: "Next", hi: "आगे"}, // HI: review
     skipDemo: {en: "Skip (demo)", hi: "छोड़ें (डेमो)"}, // HI: review
-    lookFor: {en: "Look for", hi: "ध्यान से देखिए"} // HI: review
+    lookFor: {en: "Look for", hi: "ध्यान से देखिए"}, // HI: review
+    lookCarefully: {en: "Look carefully at", hi: "ध्यान से देखिए"}, // HI: review
+    parts: {
+      ears: {en: "Ears", hi: "कान"}, // HI: review
+      eyes: {en: "Eyes", hi: "आँखें"}, // HI: review
+      mouth: {en: "Mouth", hi: "मुँह"}, // HI: review
+      tail: {en: "Tail", hi: "पूँछ"}, // HI: review
+      fur: {en: "Back fur", hi: "पीठ के बाल"} // HI: review
+    }
   },
 
   onboarding: {
@@ -30,8 +38,8 @@ export const Content: ContentRoot = {
   level1: {
     prompt: {en: "How is Moti feeling?", hi: "मोती कैसा महसूस कर रहा है?"},
     hint: {
-      en: "Look at Moti's body, then pick one.",
-      hi: "मोती के शरीर को देखिए, फिर एक चुनिए।" // HI: review
+      en: "Look carefully at Moti. Drag him to turn him around. Then pick one.",
+      hi: "मोती को ध्यान से देखिए। उसे खींचकर घुमाइए। फिर एक चुनिए।" // HI: review
     },
     choices: [
       {id: "relaxed", label: {en: "Relaxed", hi: "शांत"}},

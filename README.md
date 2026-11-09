@@ -24,7 +24,7 @@ node tools/run-tests.mjs
 ```
 
 Needs Node 22.15 or newer (tested on 24). Nothing to install: the runner transpiles the TypeScript itself.
-28 tests, pure logic only (no scene), in `Assets/Scripts/tests/`:
+30 tests, pure logic only (no scene), in `Assets/Scripts/tests/`:
 
 | File | What it proves |
 |---|---|
@@ -94,7 +94,7 @@ Leave both flags in until the line has been checked.
 
 ## Signs to look for (callouts on Moti)
 
-After each Level 1 answer, numbered dots appear on Moti's body and a short bilingual "Look for" legend appears beside him (`dog/DogCallouts.ts`; the text lives in `Content.ts` as `signals`). The dots sit on Moti's actual ears, eyes, mouth, body and tail, so they follow him as he moves. While the dots show, Moti also turns toward you and grows by `Config.DOG_FOCUS_SCALE` (1.3), about his feet, then returns to normal when they clear. Turning toward you makes his silhouette narrower, which is how he gets bigger without leaving his strip of the narrow view (`Layout.test.ts` checks this).
+After each Level 1 answer, numbered dots appear on Moti's body and a short bilingual "Look for" legend appears beside him (`dog/DogCallouts.ts`; the text lives in `Content.ts` as `signals`). The dots sit on Moti's actual ears, eyes, mouth, body and tail, so they follow him as he moves. **Where to look (with every Level 1 question):** dots appear on Moti's ears, eyes, mouth, tail and back, with a legend "Look carefully at: Ears, Eyes, Mouth, Tail, Back fur". They name body parts only, so they do not give the answer away; the specific cue is shown after the answer (below). **Turn him:** drag Moti (pinch and drag, or the mouse in the preview) to turn him all the way round and over, so you can see him from every angle; he eases back to facing front for the next question (`DogRealistic.ts`, `Config.DOG_SPIN_DEG_PER_CM`). While the dots show, Moti also turns toward you and grows by `Config.DOG_FOCUS_SCALE` (1.3), about his feet, then returns to normal when they clear. Turning toward you makes his silhouette narrower, which is how he gets bigger without leaving his strip of the narrow view (`Layout.test.ts` checks this).
 
 ## Add the Hindi audio
 
@@ -159,7 +159,7 @@ Cite the exact document and date you verified against before recording the video
 - [x] `spk_debug_key.pem` (private signing key) is git-ignored and is not in the repo. Never commit it.
 - [ ] Drop in the Hindi audio and re-check that nothing is cut off.
 - [ ] Replace the stand-in forearm and the primitive puppies/bowl if you want a more polished look.
-- [x] `node tools/run-tests.mjs`: 28 of 28 pass.
+- [x] `node tools/run-tests.mjs`: 30 of 30 pass.
 
 ---
 

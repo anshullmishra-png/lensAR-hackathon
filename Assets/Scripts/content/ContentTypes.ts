@@ -107,8 +107,12 @@ export interface UiStrings {
   next: LocalText
   /** Label of the demo-only skip button on the wash timer (only shown when DEMO_MODE is on). */
   skipDemo: LocalText
-  /** Header above the "signs to look for" callouts next to Moti. */
+  /** Header above the "signs to look for" callouts next to Moti (shown after an answer, naming the actual cues). */
   lookFor: LocalText
+  /** Header of the neutral "where to look" dots shown WITH each Level 1 question (they name body parts, not cues). */
+  lookCarefully: LocalText
+  /** Names of the body parts those dots point at. */
+  parts: {ears: LocalText; eyes: LocalText; mouth: LocalText; tail: LocalText; fur: LocalText}
 }
 
 export interface OnboardingContent {

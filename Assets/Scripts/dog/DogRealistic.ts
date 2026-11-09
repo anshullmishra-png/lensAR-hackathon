@@ -1,3 +1,4 @@
+import {Interactable} from "InteractionKit.lspkg/Components/Interaction/Interactable/Interactable"
 import {Config} from "../app/Config"
 import {bus} from "../core/EventBus"
 import {Events, SetPosePayload} from "../core/Events"
@@ -156,6 +157,10 @@ export class DogRealistic implements DogRigApi {
   readonly anchors: {[part: string]: SceneObject} = {}
 
   private focus: SceneObject
+  private spin: SceneObject
+  private spinQ: quat = quat.quatIdentity()
+  private dragging = false
+  private spinReset = false
   private focusT = 0
   private focusTarget = 0
   private cur: RigPose
@@ -198,12 +203,16 @@ export class DogRealistic implements DogRigApi {
     // Everything hangs under a "focus" node whose origin is at the dog's feet, so growing and turning it keeps his paws on the floor.
     this.focus = global.scene.createSceneObject("DogFocus")
     this.focus.setParent(this.root)
-    body.setParent(this.focus)
+    // Inside that, a "spin" node at the middle of his body: dragging him turns this node, so he can be viewed from any angle.
+    this.spin = global.scene.createSceneObject("DogSpin")
+    this.spin.setParent(this.focus)
+    this.spin.getTransform().setLocalPosition(new vec3(0, FOOT_LIFT * CM_PER_UNIT, 0))
+    body.setParent(this.spin)
     body.enabled = true
     const bt = body.getTransform()
     bt.setLocalRotation(quat.quatIdentity())
     bt.setLocalScale(vec3.one().uniformScale(CM_PER_UNIT))
-    bt.setLocalPosition(new vec3(0, FOOT_LIFT * CM_PER_UNIT, 0))
+    bt.setLocalPosition(vec3.zero())
 
     this.collectJoints(body)
 
@@ -220,6 +229,7 @@ export class DogRealistic implements DogRigApi {
     this.cur = {...DogPoses[startPose].rig}
     this.target = {...this.cur}
 
+    this.buildGrab()
     this.buildMouth()
     this.buildEyes()
     this.buildTeeth()
@@ -245,6 +255,8 @@ export class DogRealistic implements DogRigApi {
     if (def) {
       this.target = {...def.rig}
     }
+    // A new question: ease Moti back to facing front.
+    this.spinReset = true
   }
 
   /** Turn toward the viewer and grow a little (true), or go back (false). */
@@ -254,6 +266,10 @@ export class DogRealistic implements DogRigApi {
 
   update(dt: number): void {
     this.clock += dt
+    if (this.spinReset && !this.dragging) {
+      this.spinQ = quat.slerp(this.spinQ, quat.quatIdentity(), Math.min(1, dt * 5))
+    }
+    this.spin.getTransform().setLocalRotation(this.spinQ)
     this.focusT += (this.focusTarget - this.focusT) * Math.min(1, dt * 5)
     const f = this.focusT
     const s = 1 + (Config.DOG_FOCUS_SCALE - 1) * f
@@ -289,6 +305,43 @@ export class DogRealistic implements DogRigApi {
       countIn(this.joints["root"], acc)
     }
     return acc
+  }
+
+  /**
+   * Turn Moti by dragging: yaw about the vertical axis and pitch about the horizontal axis, applied to the current turn, so
+   * he can be taken all the way round and over (a trackball, not a limited tilt).
+   */
+  rotateBy(yawDeg: number, pitchDeg: number): void {
+    const yaw = quat.angleAxis(yawDeg * DEG, vec3.up())
+    const pitch = quat.angleAxis(pitchDeg * DEG, vec3.right())
+    const q = yaw.multiply(pitch).multiply(this.spinQ)
+    q.normalize()
+    this.spinQ = q
+  }
+
+  /** An invisible box around Moti that can be grabbed (pinch, or the mouse in the preview) and dragged to turn him. */
+  private buildGrab(): void {
+    const grab = global.scene.createSceneObject("DogGrab")
+    grab.setParent(this.root)
+    grab.getTransform().setLocalPosition(new vec3(0, FOOT_LIFT * CM_PER_UNIT, 0))
+    const collider = grab.createComponent("ColliderComponent") as ColliderComponent
+    const shape = Shape.createBoxShape()
+    shape.size = new vec3(Config.DOG_GRAB_SIZE_CM, Config.DOG_GRAB_SIZE_CM, Config.DOG_GRAB_SIZE_CM)
+    collider.shape = shape
+    collider.fitVisual = false
+    const interactable = grab.createComponent(Interactable.getTypeName()) as Interactable
+    interactable.onDragStart.add(() => {
+      this.dragging = true
+      this.spinReset = false
+    })
+    interactable.onDragUpdate.add((e) => {
+      const v = e.planecastDragVector ? e.planecastDragVector : e.dragVector
+      // Dragging right turns his front to the right; dragging up tips his front up.
+      this.rotateBy(v.x * Config.DOG_SPIN_DEG_PER_CM, -v.y * Config.DOG_SPIN_DEG_PER_CM)
+    })
+    interactable.onDragEnd.add(() => {
+      this.dragging = false
+    })
   }
 
   /** Names of every joint found, so a log line can prove the skeleton imported. */
@@ -443,15 +496,16 @@ export class DogRealistic implements DogRigApi {
       this.part(tuft, "tip", this.sphere, "dark", [0, 0.84, 0], [0.4, 0.42, 0.4])
       tuft.getTransform().setLocalScale(new vec3(0.0001, 0.0001, 0.0001))
       this.tufts.push({so: tuft, i, baseY: pos[1]})
-      if (i === 5) {
-        this.anchors.fur = tuft
-      }
     })
     this.hackleCount = spine.length
   }
 
   private buildAnchors(): void {
     const root = this.joints["root"]
+    if (root) {
+      // The "back fur" dot sits on the upper back at the side that faces the viewer, so it is not hidden behind his body.
+      this.anchors.fur = this.node(root, "anchorFur", [0.1, 0.13, -0.02])
+    }
     const earR = this.joints["earR"]
     const tail2 = this.joints["tail2"]
     if (root) {
