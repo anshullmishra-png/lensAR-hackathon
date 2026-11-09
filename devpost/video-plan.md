@@ -10,6 +10,10 @@ Check the Devpost page for the required video length and format before recording
 - [ ] Preview set to the Spectacles device. Terminal ready in the repo folder.
 - [ ] `node tools/run-tests.mjs` shows 30 passed, 0 failed.
 
+## Cards to prepare
+
+Two plain text cards (card A: the 37 lakh reported-bites figure; card B: the estimate line), exactly as worded in `submission.md`. Keep each on screen for at least four seconds. Do not add the 54 reported-deaths figure next to the 20,000 estimate.
+
 ## Shot list
 
 | Time | What the viewer sees | What you say (English; the Lens itself is bilingual) |

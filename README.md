@@ -168,6 +168,19 @@ Built and tested in **Lens Studio 5.24.1 (build 26100516)**; the project file re
 
 ---
 
+## Statistics used in the video and the Devpost text
+
+These give context for why the Lens exists. They are not Lens content. Both sources are news or explainer pages that I opened and read; neither is the original official document, so treat them as secondary.
+
+| Figure | How it is described | Source and how far I read it |
+|---|---|---|
+| **37,17,336 dog bite cases in 2024** (about 3.7 million, "37 lakh") | **Reported** cases. The page does not give the date of the Lok Sabha reply | A reply in the Lok Sabha by S.P. Singh Baghel, Minister of State for Fisheries, Animal Husbandry and Dairying, as reported by [IANS, 22 July 2025](https://ianslive.in/centre-steps-up-stray-dog-control-measures-over-37-lakh-dog-bite-cases-in-2024--20250722185614) (page opened and read) |
+| About 10,000 bites a day, one about every nine seconds | My own arithmetic from the 2024 total (3,717,336 over 366 days is about 10,157 a day, one every 8.5 seconds); say "works out to" | Calculation |
+| About **20,000 rabies deaths a year in India, of about 59,000 worldwide** | **Estimate.** The data year is not given | [Drishti IAS summary, 27 Dec 2025](https://www.drishtiias.com/daily-updates/daily-news-analysis/rabies-in-india/print_manually) of a "One Health" study (page opened and read; the study itself not read) |
+| **About 40% of rabies cases are in children under 15**; **over 20% of dog-bite victims receive no anti-rabies vaccine** | **Estimates**, same study and same caveat | same Drishti page |
+
+The same IANS report also gives **54 suspected human rabies deaths in 2024**. That reported figure is far lower than the estimate above, and I have not reconciled the gap (reporting versus estimating), so the video and the Devpost text do not put the two side by side.
+
 ## What was checked against sources (10 Nov 2026)
 
 "Read in full" means I extracted and read the document's text. "Seen in search excerpts" means the page came up in a search and the passage I rely on was quoted there, but I did not read the page end to end. Every Hindi line still needs a native-speaker review (`// HI: review`).

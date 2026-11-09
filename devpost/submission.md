@@ -11,6 +11,8 @@ A bilingual Hindi and English Specs Lens that teaches a dog's body language and 
 ## Inspiration
 Rabies is almost always fatal once symptoms start, yet it is almost completely preventable if a bite is handled correctly. Many people in tier 2 and tier 3 India do not know the first steps, and many believe things that make it worse, like rubbing chilli or turmeric on a bite. Most bites also start with signs a dog gave first, and people missed them. We wanted a Lens that teaches both: how to read a dog, and what to do if it goes wrong.
 
+Context, with sources in the README ("Statistics used in the video and the Devpost text"): India **reported** 37,17,336 dog bite cases in 2024 (a Lok Sabha reply, via IANS). Separately, one **estimate** puts rabies deaths in India at about 20,000 a year, around a third of the world's, with about 40% of cases in children under 15 and over 20% of bite victims getting no vaccine (a One Health study, via a Drishti IAS summary; data year not given). These are secondary sources, and reported and estimated figures are very different, so we do not compare them.
+
 ## What it does
 You meet **Moti**, a dog who stands next to you in your space, and you answer with a pinch.
 
@@ -75,27 +77,40 @@ Lens Studio, TypeScript, Spectacles Interaction Kit, Spectacles UI Kit, Claude C
 
 ---
 
-## Video script (about 2 minutes 40 seconds; the rule is UNDER 3 minutes, so stay under 2:50)
+## Video script: Why, How, What (about 2 minutes 40 seconds; the rule is UNDER 3 minutes, so stay under 2:50)
 
-Read at a calm pace (about 400 spoken words). Cut to the screen shown in brackets. If you run long, cut Level 2 first. Time it once before you upload.
+About 360 spoken words, which is roughly 2:15 to 2:35 at a calm pace. Cut to the screen shown in brackets. Time it once before you upload. If you run long, cut the Level 2 sentence first, then shorten the "Why" figures.
 
-**[0:00 to 0:18: Moti stands to the right and turns toward you. Pinch Start.]**
-"This is Moti. Dogs talk with their bodies, and most bites start with signs people missed. In India a bite can also mean rabies, which is almost always fatal but almost always preventable. This Lens teaches both, in Hindi and English."
+Prepare two plain text cards (any editor or a title slide): card A and card B below. Keep each on screen for at least four seconds so a judge can read it.
 
-**[0:18 to 0:50: Level 1 question. Point at the dots. Drag Moti round to the side, then back.]**
-"Level 1: how is Moti feeling? The dots tell you where to look: ears, eyes, mouth, tail, back. They don't give the answer. And you can turn him with your hand and see him from every side."
+**WHY (0:00 to 0:40)**
 
-**[0:50 to 1:20: Pinch Nervous. Tick appears. Dots rename to the real cues. Cut to warning pose, then relaxed.]**
-"After you answer, the dots name the real signs, and Moti turns to you so you can see them. A tucked tail and ears back mean uneasy. Raised fur, a hard stare and teeth mean stay away. Soft eyes and a loose body mean calm."
+**[0:00 to 0:15. Card A, large white text on black: "37 lakh (3.7 million) dog bite cases reported in India, 2024" with a small line under it: "Lok Sabha reply, via IANS, 22 July 2025". Then cut to Moti standing relaxed.]**
+"In 2024, India reported 37 lakh dog bites. That works out to about ten thousand a day, one every nine seconds."
 
-**[1:20 to 1:35: Level 2, one question.]**
-"Level 2: what do you do? Leave a dog alone when it's eating, with puppies, or asleep. If one runs at you, stand still like a tree."
+**[0:15 to 0:40. Card B: "About 20,000 rabies deaths a year (estimate)  ·  about 40% are children under 15  ·  over 20% of bite victims get no vaccine" with a small line: "One Health study, via Drishti IAS, Dec 2025". Moti behind it, relaxed.]**
+"Rabies is almost always fatal once symptoms start, and almost always preventable. One estimate puts India at about twenty thousand rabies deaths a year, around a third of the world's, and about forty percent are children. Over one in five bite victims get no vaccine. Many people never learned two things: how to read a dog, and what to do in the first fifteen minutes."
 
-**[1:35 to 2:00: Level 3. Forearm, wash timer, myth card.]**
+**HOW (0:40 to 1:10)**
+
+**[0:40 to 1:10. Level 1 question with the five "look carefully" dots. Drag Moti round to the side, then back.]**
+"I think you learn this by seeing it, not by reading a poster. So Moti stands in your space and you can turn him by dragging, to see him from every side. Before you answer, dots show where to look: ears, eyes, mouth, tail and back, without saying what they mean. Everything is in Hindi and English together, because not everyone reads English."
+
+**WHAT (1:10 to 2:00)**
+
+**[1:10 to 1:35. Pinch an answer. Tick appears, dots rename to the real cues. Cut to the warning pose, then relaxed.]**
+"This is Read the Dog, a Snap Spectacles Lens, shown here in the Lens Studio preview. Level 1: read his body. Tail tucked and ears back: uneasy. Raised fur, a hard stare, teeth: stay away. Soft eyes and a loose body: calm."
+
+**[1:35 to 1:45. One Level 2 question.]**
+"Level 2: what do you do near a dog that is eating, asleep, or running at you? Don't run."
+
+**[1:45 to 2:00. Forearm, wash timer, myth card.]**
 "Level 3: if you are bitten. Wash with soap and running water for fifteen minutes. This timer is a fifteen-second demo. Never put chilli, turmeric or oil on a bite. See a doctor the same day, even for a scratch, and finish every dose."
 
-**[2:00 to 2:15: Terminal: `node tools/run-tests.mjs`, "30 passed, 0 failed". Then the `devpost/` folder on screen.]**
-"I planned it with the Learn skill pack's design brief, and a coding agent built it in Lens Studio through CLAD and the MCP. Thirty tests check scoring, level flow, content and layout. The planning documents are in the devpost folder."
+**PROOF AND LIMITS (2:00 to 2:40)**
 
-**[2:15 to 2:42: README sources table.]**
-"Honest limits. I tested this in the Lens Studio preview, not on real glasses. The first-aid and dog-behaviour lines were compared with WHO, India's rabies programme and animal-welfare guides, but I read only one of those in full. Moti was generated with SPECS Text-to-3D, and I added the skeleton and the face. The design brief was written after the build, and says so. The Hindi hasn't had a native-speaker review. Training aid, not medical advice. Thank you."
+**[2:00 to 2:15. Terminal: `node tools/run-tests.mjs`, "30 passed, 0 failed". Then the `devpost/` folder.]**
+"I planned it with the Learn skill pack's design brief, and a coding agent built it in Lens Studio through CLAD and the MCP. Thirty tests check scoring, levels, content and layout."
+
+**[2:15 to 2:40. README sources table. Last shot: Moti relaxed.]**
+"Honest limits. I tested this in the preview, not on real glasses. Moti is generated with SPECS Text-to-3D, and I added the skeleton and the face. The Hindi hasn't had a native-speaker review. The medical lines were compared with WHO and India's rabies programme, but I read only one source in full; the README shows how far I read each. The design brief was written after the build. A training aid, not medical advice. Thank you."
