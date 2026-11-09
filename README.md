@@ -112,7 +112,16 @@ An explanation clip waits for the chime to end, and each level stays on its card
 
 ## Sources
 
-Every content claim has been checked on 10 Nov 2026. The table in "What was checked against sources" (below) names the source and says how far I read it.
+Every content claim was compared with published guidance on 10 Nov 2026, but **only the MoHFW wound-washing document was read in full**. The WHO, NCDC and dog-behaviour sources were seen in search excerpts, not read end to end. This is not "fully verified". The table in "What was checked against sources" (below) names each source and says how far I read it.
+
+## Where the dog model comes from (and its terms)
+
+- **Generator:** Moti's body is `Assets/GeneratedMeshes/MotiDog.glb`, made on 9 Nov 2026 with **SPECS Text-to-3D**, the text-to-3D service at `api.specs.com` (a Specs Inc. API), called through the signed-in Lens Studio session by the Claude Code `build-mesh` skill. Settings: `output_quality: balanced`; the preview and reconstruction stages were left at their default (`balanced`).
+- **Job 1 (used for Moti):** job id `74291684-ef52-4ec4-a10c-5330b2b72342`, seed 3843502395. Prompt: "friendly Indian street dog (pariah dog), short tan-brown coat, medium build, standing relaxed on all four legs, ears semi-erect, tail down, realistic proportions, full body, stylized but natural look". Negative prompt: "blood, wounds, aggressive, snarling, human clothing, text, base, pedestal, ground plane".
+- **Job 2:** `MotiDog2.glb`, job id `d9824f1c-837a-46d2-99ec-5fb71531ad6c`, seed 1323872683 (a leaner side-view dog; prompt: "lean Indian pariah street dog standing on all four legs, side view, ... calm friendly expression, realistic proportions, full body from nose to tail"). It is kept in the repo but not used by the Lens.
+- **What we changed:** `MotiRigged.glb` is the same mesh and texture with a skeleton and skin weights added by `tools/build_moti_rig.py`, plus a gentle lightening of the dark muzzle texels. The eyelids, fangs and fur tufts are generated in code (`DogRealistic.ts`).
+- **Terms:** there is no separate licence file for the generated model. The terms I found that cover Lens Studio's generative tools are Snap's [Generative Lens Tools Terms](https://www.snap.com/terms/generative-lens-tools) (effective 12 June 2024). They say generated Assets may be used "solely for the purpose of creating Lenses in Lens Studio" and may not be used or combined "on or with any other service, platform, or technology"; they do not say who owns the outputs; Snap keeps a perpetual licence to use prompts and Assets to improve its models and makes "no representations or warranties". **Those terms do not mention Spectacles, SPECS or text-to-3D, so I have not confirmed that they are the terms that govern the SPECS Text-to-3D service.** I make no claim of ownership over the generated mesh itself; the project's own work on it is the rig, the rig script and the code.
+- **Other non-original assets:** the Hindi and English text uses Noto Sans Devanagari (SIL Open Font License 1.1). The UI, interaction and tween packages are Snap's `UIKit`, `InteractionKit` and `Motion` packages from the Lens Studio Asset Library.
 
 ---
 

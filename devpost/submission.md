@@ -22,7 +22,7 @@ Everything is on screen in Hindi and English together. Moti's ears, tail, jaw, e
 
 ## How we built it
 - **Lens Studio and TypeScript** for Spectacles, with the **Spectacles Interaction Kit** (pinch and drag) and **UI Kit** (panels and buttons), plus the Motion tween library.
-- **Moti** is an AI-generated 3D dog. It was one solid mesh, so it could not show a tucked tail or pinned ears. We wrote a small tool (`tools/build_moti_rig.py`) that adds a skeleton (head, jaw, two ears, three tail bones) with smooth skin weights, and a rig script that drives those bones from plain pose data. Eyelids, fangs and raised fur are small parts built in code that follow the bones.
+- **Moti** is a 3D dog generated with **SPECS Text-to-3D** (the `api.specs.com` text-to-3D service, used through Lens Studio; prompt and settings are in the README). It was one solid mesh, so it could not show a tucked tail or pinned ears. We wrote a small tool (`tools/build_moti_rig.py`) that adds a skeleton (head, jaw, two ears, three tail bones) with smooth skin weights, and a rig script that drives those bones from plain pose data. Eyelids, fangs and raised fur are small parts built in code that follow the bones.
 - **Content** lives in one typed file with a validator, so every line has Hindi and English and nothing ships half-translated.
 - **30 automated tests** cover scoring, level flow, the audio queue, the content, and the layout (including checks that keep Moti and the legend inside the narrow field of view).
 - **Built with Claude Code** through the CLAD plugin and the Lens Studio MCP. The planning documents are in `devpost/`.
@@ -35,7 +35,7 @@ Everything is on screen in Hindi and English together. Moti's ears, tail, jaw, e
 ## Accomplishments we are proud of
 - Body language you can actually see, in a Lens about something that really matters.
 - Hindi and English on screen at once, in a font that renders Devanagari correctly.
-- Content checked against WHO and India's national rabies programme guidance, with the checks written down, and tests that run.
+- Content compared with published guidance (WHO, India's national rabies programme, animal-welfare and bite-prevention guides), with every check written down, and tests that run. Only the Indian wound-washing guidance was read in full; the other sources were seen in search excerpts.
 
 ## What we learned
 Teaching works better when the learner is told where to look, not what to see. Naming only the body part before the answer, and the actual cue after it, did that.
@@ -52,14 +52,18 @@ Teaching works better when the learner is told where to look, not what to see. N
 - **The wash timer is a 15-second demo** (`DEMO_MODE` is on, with a skip button) so a reviewer can finish the step. Set `DEMO_MODE` to `false` for a real 15-minute wash.
 - **Hindi is a draft** and has not had a native-speaker review. [Hindi voice lines: recorded / not recorded: choose one before you submit.]
 - **Training aid, not medical advice.** The Lens never judges whether a dog is rabid and never gives a vaccine schedule or dose count.
+- **The dog model is generated.** It came from SPECS Text-to-3D (see "Dog model origin" below); we added the skeleton, the rig and the face parts. Snap's Generative Lens Tools Terms allow generated assets to be used "solely for the purpose of creating Lenses in Lens Studio", say nothing about who owns the output, and do not name SPECS Text-to-3D, so we make no ownership claim over the mesh itself.
 - **The planning brief in `devpost/design-brief.md` was written after the build** (it says so at the top). `devpost/build-brief.md` is the brief the Lens was actually built from.
 
 ## Sources checked
-Full table, with how far each source was read, in the README ("What was checked against sources"). In short:
+This is **not** "fully verified". Only the MoHFW wound-washing document was read in full; the WHO, NCDC and dog-behaviour sources were seen in search excerpts, not read end to end. The README ("What was checked against sources") has the full table with how far each source was read. In short:
 - India's National Rabies Control Programme wound-washing guidance (MoHFW), read in full: wash with soap and running water for up to 15 minutes; applying chilli, oils, turmeric and similar is "strictly prohibited"; cauterising is prohibited.
 - WHO rabies fact sheet: wash for at least 15 minutes; minor scratches also need vaccination; complete the course.
 - Dog behaviour: ASPCA Pro, Best Friends, Wisconsin Humane Society (body language); AVMA tips and CHOP (bite prevention).
 - Three lines were reworded because the sources said something slightly different (15 minutes; "never put chilli, turmeric or oil on a bite"; the old stomach vaccine was stopped in India in 2004, today it is a few shots, usually in the arm).
+
+## Dog model origin
+Generated on 9 Nov 2026 with SPECS Text-to-3D (`api.specs.com`, a Specs Inc. API) through the signed-in Lens Studio session, from this prompt: "friendly Indian street dog (pariah dog), short tan-brown coat, medium build, standing relaxed on all four legs, ears semi-erect, tail down, realistic proportions, full body, stylized but natural look". The terms found for Lens Studio generative tools are Snap's Generative Lens Tools Terms (effective 12 June 2024); they do not mention Spectacles, SPECS or text-to-3D, so it is not confirmed that they govern this service. The Hindi and English text uses Noto Sans Devanagari (SIL Open Font License 1.1).
 
 ## Built with
 Lens Studio, TypeScript, Spectacles Interaction Kit, Spectacles UI Kit, Claude Code, CLAD plugin, Lens Studio MCP, Python (rigging tool).
@@ -94,4 +98,4 @@ Read at a calm pace. Cut to the screen shown in brackets. If you run long, cut L
 "Thirty automated tests check the scoring, the level flow, the content and the layout."
 
 **[2:30 to 3:00: README sources table.]**
-"Honest limits. I tested this in the Lens Studio preview, not on real glasses. The first-aid and dog-behaviour lines are checked against WHO, India's rabies programme and animal-welfare guides, and the README says how far I read each one. Three lines were reworded because the sources differed. The Hindi hasn't had a native-speaker review. This is a training aid, not medical advice. Thank you."
+"Honest limits. I tested this in the Lens Studio preview, not on real glasses. The first-aid and dog-behaviour lines were compared with WHO, India's rabies programme and animal-welfare guides, but I read only one of those documents in full; the README says how far I read each. Moti was generated with SPECS Text-to-3D, and I added the skeleton and the face. Three lines were reworded because the sources differed. The Hindi hasn't had a native-speaker review. This is a training aid, not medical advice. Thank you."

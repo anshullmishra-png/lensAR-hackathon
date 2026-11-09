@@ -20,7 +20,7 @@ Check the Devpost page for the required video length and format before recording
 | 1:00 to 1:30 | Level 2 (eating, puppies, sleeping, barking): one question, one pinch, the feedback panel. | "Level 2 asks what to do near a dog that is eating, with puppies, asleep or barking." |
 | 1:30 to 2:00 | Level 3: the forearm, the bite mark, the wash timer (15 s demo), the myth-or-fact card, "go to a health centre today". | "If a bite happens: wash with soap and running water for at least 15 minutes, see a doctor the same day, finish every dose. The timer here is a 15-second demo." |
 | 2:00 to 2:20 | Terminal: `node tools/run-tests.mjs` and the "30 passed, 0 failed" line. | "The logic is tested: scoring, level flow, the audio queue and the layout. 30 tests pass." |
-| 2:20 to 2:50 | The README "What was checked against sources" table. | "Limits, honestly: the first-aid and dog-behaviour claims are checked against WHO, India's rabies programme, the AVMA and animal-welfare guides, and the table says how far I read each one. Two lines were reworded because the sources said something slightly different. The Hindi has not had a native-speaker review. The wash timer is a 15-second demo. Moti is an AI-generated model that I rigged myself. All of this was tested in the Lens Studio preview, not on real glasses. Training aid, not medical advice." |
+| 2:20 to 2:50 | The README "What was checked against sources" table. | "Limits, honestly: the first-aid and dog-behaviour claims were compared with WHO, India's rabies programme, the AVMA and animal-welfare guides, but only India's wound-washing document was read in full; the table says how far I read each one. Moti was generated with SPECS Text-to-3D, and I added the skeleton and the face. Two lines were reworded because the sources said something slightly different. The Hindi has not had a native-speaker review. The wash timer is a 15-second demo. Moti is an AI-generated model that I rigged myself. All of this was tested in the Lens Studio preview, not on real glasses. Training aid, not medical advice." |
 
 ## Say these things plainly (do not hide them)
 
@@ -32,6 +32,7 @@ Check the Devpost page for the required video length and format before recording
 
 ## What not to claim
 
-- Do not say "verified by a doctor": it is checked against published guidance, and the README table says how far each source was read.
+- Do not say "fully verified" or "verified by a doctor": it was compared with published guidance, and only one source (MoHFW) was read in full.
+- Do not say you made the dog model or own it: it was generated with SPECS Text-to-3D; you added the rig and face.
 - Do not say the Hindi is reviewed.
 - Do not say it runs on glasses.
