@@ -75,27 +75,27 @@ Lens Studio, TypeScript, Spectacles Interaction Kit, Spectacles UI Kit, Claude C
 
 ---
 
-## Video script (about 3 minutes, about 430 words spoken)
+## Video script (about 2 minutes 40 seconds; the rule is UNDER 3 minutes, so stay under 2:50)
 
-Read at a calm pace. Cut to the screen shown in brackets. If you run long, cut Level 2 first.
+Read at a calm pace (about 400 spoken words). Cut to the screen shown in brackets. If you run long, cut Level 2 first. Time it once before you upload.
 
-**[0:00 to 0:20: Moti stands to the right and turns toward you. Pinch Start.]**
-"This is Moti. Dogs talk with their bodies, and most bites start with signs people missed. In India, a bite can also mean rabies, which is almost always fatal but almost always preventable. This Lens teaches both, in Hindi and English."
+**[0:00 to 0:18: Moti stands to the right and turns toward you. Pinch Start.]**
+"This is Moti. Dogs talk with their bodies, and most bites start with signs people missed. In India a bite can also mean rabies, which is almost always fatal but almost always preventable. This Lens teaches both, in Hindi and English."
 
-**[0:20 to 0:55: Level 1 question. Point at the dots. Drag Moti round to the side, then back.]**
-"Level 1: how is Moti feeling? The dots tell you where to look: ears, eyes, mouth, tail, back. They don't tell you the answer. And you can turn him with your hand and see him from every side."
+**[0:18 to 0:50: Level 1 question. Point at the dots. Drag Moti round to the side, then back.]**
+"Level 1: how is Moti feeling? The dots tell you where to look: ears, eyes, mouth, tail, back. They don't give the answer. And you can turn him with your hand and see him from every side."
 
-**[0:55 to 1:25: Pinch Nervous. Tick appears. Dots rename to the real cues. Cut to warning pose, then relaxed.]**
+**[0:50 to 1:20: Pinch Nervous. Tick appears. Dots rename to the real cues. Cut to warning pose, then relaxed.]**
 "After you answer, the dots name the real signs, and Moti turns to you so you can see them. A tucked tail and ears back mean uneasy. Raised fur, a hard stare and teeth mean stay away. Soft eyes and a loose body mean calm."
 
-**[1:25 to 1:45: Level 2, one question.]**
-"Level 2: what do you do? Near a dog that is eating, with puppies, or asleep, leave it alone. If one runs at you, don't run: stand still like a tree."
+**[1:20 to 1:35: Level 2, one question.]**
+"Level 2: what do you do? Leave a dog alone when it's eating, with puppies, or asleep. If one runs at you, stand still like a tree."
 
-**[1:45 to 2:15: Level 3. Forearm, wash timer, myth card.]**
+**[1:35 to 2:00: Level 3. Forearm, wash timer, myth card.]**
 "Level 3: if you are bitten. Wash with soap and running water for fifteen minutes. This timer is a fifteen-second demo. Never put chilli, turmeric or oil on a bite. See a doctor the same day, even for a scratch, and finish every dose."
 
-**[2:15 to 2:30: Terminal: `node tools/run-tests.mjs`, "30 passed, 0 failed".]**
-"Thirty automated tests check the scoring, the level flow, the content and the layout."
+**[2:00 to 2:15: Terminal: `node tools/run-tests.mjs`, "30 passed, 0 failed". Then the `devpost/` folder on screen.]**
+"I planned it with the Learn skill pack's design brief, and a coding agent built it in Lens Studio through CLAD and the MCP. Thirty tests check scoring, level flow, content and layout. The planning documents are in the devpost folder."
 
-**[2:30 to 3:00: README sources table.]**
-"Honest limits. I tested this in the Lens Studio preview, not on real glasses. The first-aid and dog-behaviour lines were compared with WHO, India's rabies programme and animal-welfare guides, but I read only one of those documents in full; the README says how far I read each. Moti was generated with SPECS Text-to-3D, and I added the skeleton and the face. Three lines were reworded because the sources differed. The Hindi hasn't had a native-speaker review. This is a training aid, not medical advice. Thank you."
+**[2:15 to 2:42: README sources table.]**
+"Honest limits. I tested this in the Lens Studio preview, not on real glasses. The first-aid and dog-behaviour lines were compared with WHO, India's rabies programme and animal-welfare guides, but I read only one of those in full. Moti was generated with SPECS Text-to-3D, and I added the skeleton and the face. The design brief was written after the build, and says so. The Hindi hasn't had a native-speaker review. Training aid, not medical advice. Thank you."

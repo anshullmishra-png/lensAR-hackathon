@@ -1,6 +1,6 @@
 # Video plan: Read the Dog
 
-Check the Devpost page for the required video length and format before recording. This plan is written for about 2 to 3 minutes. Record the Hindi voice lines first (`tools/recording-script.md`), so the video has the real audio.
+Check the Devpost page for the required video length and format before recording. The hackathon rule is **under 3 minutes**, public on YouTube, showing the Lens working (a Lens Studio preview recording is fine) and ideally the design process. Aim for about 2:40 and do not go past 2:50; `submission.md` has the timed script. Record the Hindi voice lines first (`tools/recording-script.md`), so the video has the real audio.
 
 ## Before you press record
 
