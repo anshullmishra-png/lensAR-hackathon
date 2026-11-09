@@ -23,14 +23,13 @@ const EYE_POS: Vec[] = [[-0.04, 0.273, 0.403], [0.078, 0.252, 0.358]]
 // Colours picked to sit next to the baked fur texture (forehead about 0.51, 0.25, 0.10; back about 0.59, 0.30, 0.14).
 const FUR_DARK: Vec = [0.55, 0.26, 0.1]
 const FUR_MID: Vec = [0.86, 0.46, 0.19]
-const FUR_LID: Vec = [0.9, 0.52, 0.24]
-const FUR_BROW: Vec = [0.8, 0.42, 0.17]
-const SCLERA: Vec = [1, 0.99, 0.96]
-const IRIS: Vec = [0.2, 0.1, 0.05]
+const FUR_LID: Vec = [0.86, 0.5, 0.22]
+const SCLERA: Vec = [1, 0.97, 0.92]
+const IRIS: Vec = [0.14, 0.07, 0.035]
 const PUPIL: Vec = [0.02, 0.02, 0.025]
 const GLINT: Vec = [1, 1, 1]
 const TOOTH: Vec = [0.97, 0.95, 0.88]
-const MOUTH: Vec = [0.16, 0.04, 0.05]
+const MOUTH: Vec = [0.3, 0.09, 0.1]
 const TONGUE: Vec = [0.88, 0.38, 0.45]
 
 /**
@@ -78,6 +77,48 @@ function lowPolySphere(rings: number, segments: number): RenderMesh {
   return mb.getMesh()
 }
 
+/**
+ * A spherical cap (unit diameter) around the +Y axis, from the pole down to `halfAngleDeg`. Used as an eyelid: it hugs the
+ * eyeball like a real lid and turns about the eye centre, so it never floats in front of the face like a separate blob.
+ */
+function lidCap(halfAngleDeg: number, rings: number, segments: number): RenderMesh {
+  const mb = new MeshBuilder([
+    {name: "position", components: 3},
+    {name: "normal", components: 3, normalized: true},
+    {name: "texture0", components: 2}
+  ])
+  mb.topology = MeshTopology.Triangles
+  mb.indexType = MeshIndexType.UInt16
+  const verts: number[] = []
+  const maxPhi = halfAngleDeg * (Math.PI / 180)
+  for (let r = 0; r <= rings; r++) {
+    const phi = (r / rings) * maxPhi
+    for (let s = 0; s <= segments; s++) {
+      const theta = (s / segments) * TAU
+      const x = Math.sin(phi) * Math.cos(theta)
+      const y = Math.cos(phi)
+      const z = Math.sin(phi) * Math.sin(theta)
+      verts.push(x * 0.5, y * 0.5, z * 0.5, x, y, z, s / segments, r / rings)
+    }
+  }
+  mb.appendVerticesInterleaved(verts)
+  const idx: number[] = []
+  const row = segments + 1
+  for (let r = 0; r < rings; r++) {
+    for (let s = 0; s < segments; s++) {
+      const a = r * row + s
+      const b2 = a + row
+      if (r !== 0) {
+        idx.push(a, a + 1, b2)
+      }
+      idx.push(a + 1, b2 + 1, b2)
+    }
+  }
+  mb.appendIndices(idx)
+  mb.updateMesh()
+  return mb.getMesh()
+}
+
 const smooth = (a: number, b: number, x: number): number => {
   const t = Math.max(0, Math.min(1, (x - a) / (b - a)))
   return t * t * (3 - 2 * t)
@@ -90,7 +131,6 @@ interface EyeSet {
   glint: SceneObject
   upper: SceneObject
   lower: SceneObject
-  brow: SceneObject
   sclera: SceneObject
 }
 
@@ -119,6 +159,8 @@ export class DogRealistic implements DogRigApi {
   /** Low-poly spheres: the fine one for the eyes, the coarse one for fur tufts, mouth and tongue. */
   private sphere: RenderMesh
   private sphereFine: RenderMesh
+  private lidMesh: RenderMesh
+  private mouthInside!: SceneObject
   private eyes: EyeSet[] = []
   private teethUpper: SceneObject[] = []
   private teethLower: SceneObject[] = []
@@ -139,6 +181,7 @@ export class DogRealistic implements DogRigApi {
     void sphere
     this.sphere = lowPolySphere(5, 8)
     this.sphereFine = lowPolySphere(8, 12)
+    this.lidMesh = lidCap(80, 6, 14)
     this.root = global.scene.createSceneObject("DogRealisticRig")
     this.root.setParent(parent)
     // A fixed turn so he is seen at an angle: his side, ears and tail show.
@@ -159,7 +202,7 @@ export class DogRealistic implements DogRigApi {
       return m
     }
     this.mats = {
-      dark: mk(FUR_DARK), mid: mk(FUR_MID), lid: mk(FUR_LID), brow: mk(FUR_BROW), sclera: mk(SCLERA), iris: mk(IRIS), pupil: mk(PUPIL), glint: mk(GLINT),
+      dark: mk(FUR_DARK), mid: mk(FUR_MID), lid: mk(FUR_LID), sclera: mk(SCLERA), iris: mk(IRIS), pupil: mk(PUPIL), glint: mk(GLINT),
       tooth: mk(TOOTH), mouth: mk(MOUTH), tongue: mk(TONGUE)
     }
 
@@ -286,8 +329,10 @@ export class DogRealistic implements DogRigApi {
     if (!head || !jaw) {
       return
     }
-    this.part(head, "mouthInside", this.sphere, "mouth", this.inHead([MX, 0.166, 0.42]), [0.07, 0.032, 0.12])
-    this.tongue = this.part(jaw, "tongue", this.sphere, "tongue", this.inJaw([MX, 0.157, 0.43]), [0.04, 0.014, 0.12])
+    this.mouthInside = this.part(head, "mouthInside", this.sphere, "mouth", this.inHead([MX, 0.166, 0.42]), [0.07, 0.032, 0.12])
+    this.mouthInside.enabled = false
+    this.tongue = this.part(jaw, "tongue", this.sphere, "tongue", this.inJaw([MX, 0.157, 0.43]), [0.04, 0.014, 0.06])
+    this.tongue.enabled = false
   }
 
   private buildEyes(): void {
@@ -300,17 +345,22 @@ export class DogRealistic implements DogRigApi {
       const eye = this.node(head, "eye", centre)
       // The head is turned about 22 degrees toward +x and tilted about 11 degrees, so turn the eye to face out of the skin.
       eye.getTransform().setLocalRotation(quat.fromEulerAngles(0, 22 * DEG, -11 * DEG))
-      const sclera = this.part(eye, "sclera", this.sphereFine, "sclera", [0, 0, 0], [0.062, 0.062, 0.062])
-      const iris = this.part(eye, "iris", this.sphereFine, "iris", [0, 0, 0.017], [0.052, 0.052, 0.045])
-      const pupil = this.part(eye, "pupil", this.sphereFine, "pupil", [0, 0, 0.029], [0.03, 0.03, 0.028])
-      const glint = this.part(eye, "glint", this.sphereFine, "glint", [0.009, 0.011, 0.041], [0.011, 0.011, 0.01])
-      // Eyelids swing about the eye centre: a pivot object holds the shell, offset above or below.
+      // A round dark eye on the front of the face: a thin white sclera, a big dark iris, a pupil and one small highlight.
+      const sclera = this.part(eye, "sclera", this.sphereFine, "sclera", [0, 0, 0], [0.056, 0.056, 0.056])
+      const iris = this.part(eye, "iris", this.sphereFine, "iris", [0, 0, 0.01], [0.052, 0.052, 0.04])
+      const pupil = this.part(eye, "pupil", this.sphereFine, "pupil", [0, 0, 0.021], [0.03, 0.03, 0.024])
+      const glint = this.part(eye, "glint", this.sphereFine, "glint", [0.009, 0.011, 0.032], [0.011, 0.011, 0.009])
+      // Eyelids are caps that hug the eyeball (a hair larger than it) and turn about the eye centre.
+      // Upper: the cap sits on top of the eye and tips forward to close. Lower: the same cap, flipped, tips up.
       const upperPivot = this.node(eye, "upperLidPivot", [0, 0, 0])
-      this.part(upperPivot, "upperLid", this.sphereFine, "lid", [0, 0.03, -0.002], [0.07, 0.03, 0.05])
+      this.part(upperPivot, "upperLid", this.lidMesh, "lid", [0, 0, 0], [0.067, 0.067, 0.067])
       const lowerPivot = this.node(eye, "lowerLidPivot", [0, 0, 0])
-      this.part(lowerPivot, "lowerLid", this.sphereFine, "lid", [0, -0.03, -0.002], [0.066, 0.024, 0.046])
-      const brow = this.part(eye, "brow", this.sphereFine, "brow", [0, 0.046, 0.0], [0.062, 0.012, 0.03])
-      this.eyes.push({side: s, iris, pupil, glint, upper: upperPivot, lower: lowerPivot, brow, sclera})
+      const lowerFlip = this.node(lowerPivot, "flip", [0, 0, 0])
+      lowerFlip.getTransform().setLocalRotation(quat.fromEulerAngles(Math.PI, 0, 0))
+      this.part(lowerFlip, "lowerLid", this.lidMesh, "lid", [0, 0, 0], [0.066, 0.066, 0.066])
+      upperPivot.enabled = false
+      lowerPivot.enabled = false
+      this.eyes.push({side: s, iris, pupil, glint, upper: upperPivot, lower: lowerPivot, sclera})
       if (s > 0) {
         this.anchors.eyes = eye
       }
@@ -330,8 +380,10 @@ export class DogRealistic implements DogRigApi {
     ]
     for (const [x, z, len] of row) {
       const up = this.part(head, "toothUp", this.box, "tooth", this.inHead([x, 0.166, z]), [0.0001, 0.0001, 0.0001])
+      up.enabled = false
       this.teethUpper.push(up)
       const down = this.part(jaw, "toothLow", this.box, "tooth", this.inJaw([MX + (x - MX) * 0.9, 0.152, z - 0.012]), [0.0001, 0.0001, 0.0001])
+      down.enabled = false
       this.teethLower.push(down)
       up.getTransform().setLocalRotation(quat.fromEulerAngles(0, 0, 0))
       ;(up as unknown as {len: number}).len = len
@@ -427,26 +479,32 @@ export class DogRealistic implements DogRigApi {
     // A snarl opens the mouth a little more so the teeth show.
     jaw += 0.14 * smooth(0.3, 0.9, p.teeth)
     jaw = Math.max(0, Math.min(1, jaw))
-    tongue = Math.max(0, Math.min(1.3, tongue))
-    this.rot("jaw", jaw * 36, 0, 0)
+    // A resting mouth (small jaw values) opens only a couple of degrees, so it reads as closed; big values (yawn, bark,
+    // snarl) open fully.
+    const jawDeg = jaw * 36 * (0.3 + 0.7 * smooth(0.15, 0.45, jaw))
+    this.rot("jaw", jawDeg, 0, 0)
+    this.mouthInside.enabled = jawDeg > 4.5
 
     if (this.tongue) {
-      const out = Math.max(tongue, jaw > 0.25 && p.teeth < 0.3 ? 0.35 : 0)
+      // The tongue shows only in a lick, or in an open mouth that is not a snarl. Never at rest.
+      const lickOut = Math.max(0, tongue - p.tongue)
+      const out = Math.max(lickOut, jawDeg > 9 && p.teeth < 0.3 ? 0.4 : 0)
       this.tongue.enabled = out > 0.08
       const tr = this.tongue.getTransform()
-      tr.setLocalScale(new vec3(0.04, 0.014, 0.09 + 0.1 * out))
+      tr.setLocalScale(new vec3(0.04, 0.014, 0.05 + 0.06 * out))
       const base = this.inJaw([MX, 0.157, 0.43])
-      tr.setLocalPosition(new vec3(base[0], base[1] - 0.012 * tongue, base[2] + 0.03 * out))
+      tr.setLocalPosition(new vec3(base[0], base[1] - 0.004 * out, base[2] + 0.012 * out))
     }
 
     // Teeth: only in the warning pose, and only while the mouth is open enough to show them (not in a yawn).
-    const teethOn = smooth(0.3, 0.9, p.teeth) * smooth(0.15, 0.35, jaw)
+    const teethOn = smooth(0.3, 0.9, p.teeth) * smooth(5, 11, jawDeg)
     for (const set of [this.teethUpper, this.teethLower]) {
       for (const tooth of set) {
         const len = (tooth as unknown as {len: number}).len
         const h = Math.max(0.0001, len * teethOn)
         const w = Math.max(0.0001, 0.013 * teethOn)
         const lower = set === this.teethLower
+        tooth.enabled = teethOn > 0.03
         tooth.getTransform().setLocalScale(new vec3(w, h, w))
         const pos = tooth.getTransform().getLocalPosition()
         // Upper teeth hang down from the lip, lower teeth stand up from it.
@@ -455,26 +513,31 @@ export class DogRealistic implements DogRigApi {
       }
     }
 
-    // Eyes: lids, brow, iris size.
+    // Eyes. p.eye: 1 normal, below 1 narrow or sleepy, above 1 wide. The lids are caps; what matters is the elevation (in
+    // degrees above the middle of the eye, seen from the front) where each lid edge sits. A cap of half-angle 80 tipped
+    // forward by `a` degrees has its edge at elevation 10 - a, so a = 10 - elevation.
     const eyeOpen = p.eye
-    const upperDeg = eyeOpen > 1.15 ? 0 : 4 + Math.max(0, 1 - eyeOpen) * 78
-    const lowerDeg = Math.max(0, 1 - eyeOpen) * 62
-    // + = inner end of the brow down (hard stare); - = inner end up (soft, worried).
-    const hard = smooth(1.1, 1.35, eyeOpen)
-    const soft = smooth(0.95, 0.5, eyeOpen) * (1 - smooth(0.2, 0.05, eyeOpen))
-    const browTilt = 16 * hard - 8 * soft
+    const hard = smooth(0.3, 0.9, p.teeth) // warning: a narrowed, glaring stare
+    const upperEdge = Math.max(-80, Math.min(90, 55 - 110 * (1 - eyeOpen)))
+    const lowerEdge = -70 + 55 * Math.max(0, Math.min(1, (1 - eyeOpen) / 0.9))
+    const upperOn = upperEdge < 62
+    const lowerOn = lowerEdge > -58
+    // The glare is made by slanting the upper lid so its inner end sits lower than its outer end (no extra brow shape).
+    const slant = 17 * hard
     const ring = Math.max(p.eyeRing, smooth(1.1, 1.4, eyeOpen) * 0.7)
     for (const e of this.eyes) {
-      e.upper.getTransform().setLocalRotation(quat.fromEulerAngles(upperDeg * DEG, 0, 0))
-      e.lower.getTransform().setLocalRotation(quat.fromEulerAngles(-lowerDeg * DEG, 0, 0))
-      // Inner end of the brow is toward the nose: -x for the dog's right eye (+x), +x for the left.
-      e.brow.getTransform().setLocalRotation(quat.fromEulerAngles(0, 0, e.side * browTilt * DEG))
-      const lift = upperDeg > 60 ? 0 : 1
-      e.brow.getTransform().setLocalPosition(new vec3(0, 0.046 - 0.016 * (upperDeg / 90) * lift, 0.0))
+      e.upper.enabled = upperOn
+      e.lower.enabled = lowerOn
+      if (upperOn) {
+        e.upper.getTransform().setLocalRotation(quat.fromEulerAngles((10 - upperEdge) * DEG, 0, e.side * slant * DEG))
+      }
+      if (lowerOn) {
+        e.lower.getTransform().setLocalRotation(quat.fromEulerAngles(-(lowerEdge + 10) * DEG, 0, 0))
+      }
       const irisScale = 0.052 * (1 - 0.2 * ring)
-      e.iris.getTransform().setLocalScale(new vec3(irisScale, irisScale, 0.045))
-      e.pupil.getTransform().setLocalScale(new vec3(0.03 * (1 - 0.12 * ring), 0.03 * (1 - 0.12 * ring), 0.028))
-      e.glint.enabled = upperDeg < 70
+      e.iris.getTransform().setLocalScale(new vec3(irisScale, irisScale, 0.04))
+      e.pupil.getTransform().setLocalScale(new vec3(0.03 * (1 - 0.12 * ring), 0.03 * (1 - 0.12 * ring), 0.024))
+      e.glint.enabled = upperEdge > -40
     }
 
     // Ears: relaxed, pricked forward, or pinned back and out.

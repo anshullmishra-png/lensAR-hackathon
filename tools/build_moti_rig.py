@@ -119,6 +119,39 @@ def top4(W):
     return J, Wt
 
 
+def soften_muzzle(png_bytes, P, UV, I):
+    """
+    The generated texture paints a large dark grey-brown plate on the muzzle below the nose. On the dog's face it reads as a
+    dark smear. Lighten the dark texels of the lower muzzle toward a warm tan. The nose (higher up, near the tip) and the
+    mouth line are left alone so the nose stays black and the mouth is still readable.
+    """
+    import io
+    from PIL import Image, ImageDraw
+    im = Image.open(io.BytesIO(png_bytes)).convert("RGBA")
+    W, H = im.size
+    mask = Image.new("L", (W, H), 0)
+    d = ImageDraw.Draw(mask)
+    tris = I.reshape(-1, 3).astype(int)
+    for a, b2, c in tris:
+        pts = P[[a, b2, c]]
+        cen = pts.mean(0)
+        # Lower muzzle: in front of the eyes, below the nose, above the chin.
+        if cen[2] > 0.38 and 0.125 < cen[1] < 0.19 and abs(cen[0] - 0.05) < 0.1:
+            poly = [(float(UV[i][0]) * W, float(UV[i][1]) * H) for i in (a, b2, c)]
+            d.polygon(poly, fill=255)
+    arr = np.array(im).astype(float)
+    m = np.array(mask).astype(float) / 255.0
+    lum = arr[..., :3].mean(axis=2)
+    dark = np.clip((135.0 - lum) / 70.0, 0, 1)
+    alpha = (m * dark * 0.85)[..., None]
+    tan = np.array([208.0, 158.0, 108.0])
+    target = tan[None, None, :] * (0.78 + 0.4 * (lum / 255.0))[..., None]
+    arr[..., :3] = arr[..., :3] * (1 - alpha) + target * alpha
+    out = io.BytesIO()
+    Image.fromarray(np.clip(arr, 0, 255).astype("uint8"), "RGBA").save(out, "PNG")
+    return out.getvalue()
+
+
 def pad4(b):
     return b + b"\x00" * ((4 - len(b) % 4) % 4)
 
@@ -145,6 +178,9 @@ def main():
         bv = j["bufferViews"][im["bufferView"]]
         o = bv.get("byteOffset", 0)
         images.append(binb[o:o + bv["byteLength"]])
+
+    # images[1] is the base colour (Image_0), images[0] the baked light map.
+    images[1] = soften_muzzle(images[1], P, UV, I)
 
     chunks = []
     views = []
