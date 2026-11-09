@@ -8,4 +8,6 @@ export interface DogRigApi {
   readonly anchors: {[part: string]: SceneObject}
   /** Call every frame. */
   update(dt: number): void
+  /** Optional: turn toward the viewer and grow a little (true) or return to the normal view (false). Used while the "signs to look for" dots are shown. */
+  setFocus?(on: boolean): void
 }

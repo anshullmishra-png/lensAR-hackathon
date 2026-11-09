@@ -47,6 +47,24 @@ test("Layout: Moti stands in the free space to the right of the panels, inside t
   assert(dogBottom <= VIEW_HALF_H_DEG, `Moti's feet are ${dogBottom.toFixed(1)} deg below eye level, outside the view (${VIEW_HALF_H_DEG} deg)`)
 })
 
+// Moti seen at an angle is about HALF_LENGTH wide along his body and HALF_BODY across it (measured at scale 0.9, which gives
+// DOG_HALF_WIDTH_CM = 21 at his resting turn of 32 degrees).
+const DOG_HALF_LENGTH_CM = 26
+const DOG_HALF_BODY_CM = 10.7
+
+test("Layout: when Moti turns toward the viewer and grows for the signs, he still fits his strip of the view", () => {
+  const yaw = (Math.abs(Config.DOG_VIEW_YAW_DEG) - Config.DOG_FOCUS_YAW_DEG) * (Math.PI / 180)
+  const halfWidth = (DOG_HALF_LENGTH_CM * Math.abs(Math.sin(yaw)) + DOG_HALF_BODY_CM * Math.cos(yaw)) * Config.DOG_FOCUS_SCALE
+  const panelRight = Math.atan2(Config.UI_SIDE_OFFSET + Config.CARD_W / 2, Config.UI_DISTANCE) * DEG
+  const left = Math.atan2(Config.DOG_SIDE - halfWidth, Config.DOG_DISTANCE) * DEG
+  const right = Math.atan2(Config.DOG_SIDE + halfWidth, Config.DOG_DISTANCE) * DEG
+  assert(left >= panelRight + SIDE_CLEARANCE_DEG, `focused Moti's left edge is ${left.toFixed(1)} deg, the panels reach ${panelRight.toFixed(1)} deg`)
+  assert(right <= VIEW_HALF_W_DEG, `focused Moti's right edge is ${right.toFixed(1)} deg, outside the view (${VIEW_HALF_W_DEG} deg)`)
+  // Growing about his feet: his head must stay inside the top of the view too.
+  const headTop = angleBelowEye(Config.EYE_TO_FLOOR - Config.DOG_HEIGHT * Config.DOG_FOCUS_SCALE, Config.DOG_DISTANCE)
+  assert(headTop >= -VIEW_HALF_H_DEG, `focused Moti's head is ${(-headTop).toFixed(1)} deg above eye level, outside the view`)
+})
+
 test("Layout: the captions sit above the question card, out of the dog's way", () => {
   const y = Config.UI_Y
   assert(y.captions - 4.5 > y.card + Config.CARD_H / 2 - 1, "captions should be above the card")

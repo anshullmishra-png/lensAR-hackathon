@@ -54,7 +54,13 @@ export class DogProps extends BaseScriptComponent {
     }
     if (this.barkMaterial) {
       // Numbered "signs to look for" dots and legend (shown after a Level 1 answer).
-      this.callouts = new DogCallouts(this.sceneObject, this.sphereMesh, this.barkMaterial, this.rig)
+      // While they show, Moti turns toward the viewer and grows a little so the signs are easier to see.
+      this.callouts = new DogCallouts(this.sceneObject, this.sphereMesh, this.barkMaterial, this.rig, (visible) => {
+        if (this.rig && this.rig.setFocus) {
+          this.rig.setFocus(visible)
+        }
+      })
+      this.createEvent("UpdateEvent").bind(() => this.callouts.update())
     }
     this.props.forEach((p) => {
       p.enabled = false

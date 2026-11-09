@@ -21,6 +21,10 @@ export const Config = {
   /** Size of the articulated dog relative to a 55 cm dog. */
   DOG_SCALE: 0.9,
   DOG_DISTANCE: 280,
+  /** While the "signs to look for" dots are shown, Moti turns toward the viewer and grows by this factor (about his feet). */
+  DOG_FOCUS_SCALE: 1.3,
+  /** How many degrees he turns toward the viewer in that moment (his resting turn is DOG_VIEW_YAW_DEG). */
+  DOG_FOCUS_YAW_DEG: 24,
   /** The Lens only renders into a narrow band, about 27 deg wide x 36 deg tall (measured in the preview). The panels sit
    *  slightly left of centre and Moti stands in the free space on the right, turned so his ears and tail show. */
   DOG_SIDE: 43,

@@ -94,7 +94,7 @@ Leave both flags in until the line has been checked.
 
 ## Signs to look for (callouts on Moti)
 
-After each Level 1 answer, numbered dots appear on Moti's body and a short bilingual "Look for" legend appears beside him (`dog/DogCallouts.ts`; the text lives in `Content.ts` as `signals`). The dots sit on Moti's actual ears, eyes, mouth, body and tail, so they follow him as he moves.
+After each Level 1 answer, numbered dots appear on Moti's body and a short bilingual "Look for" legend appears beside him (`dog/DogCallouts.ts`; the text lives in `Content.ts` as `signals`). The dots sit on Moti's actual ears, eyes, mouth, body and tail, so they follow him as he moves. While the dots show, Moti also turns toward you and grows by `Config.DOG_FOCUS_SCALE` (1.3), about his feet, then returns to normal when they clear. Turning toward you makes his silhouette narrower, which is how he gets bigger without leaving his strip of the narrow view (`Layout.test.ts` checks this).
 
 ## Add the Hindi audio
 

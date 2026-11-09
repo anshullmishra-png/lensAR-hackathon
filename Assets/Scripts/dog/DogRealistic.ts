@@ -1,3 +1,4 @@
+import {Config} from "../app/Config"
 import {bus} from "../core/EventBus"
 import {Events, SetPosePayload} from "../core/Events"
 import {Log} from "../util/Log"
@@ -154,6 +155,9 @@ export class DogRealistic implements DogRigApi {
   readonly root: SceneObject
   readonly anchors: {[part: string]: SceneObject} = {}
 
+  private focus: SceneObject
+  private focusT = 0
+  private focusTarget = 0
   private cur: RigPose
   private target: RigPose
   private clock = 0
@@ -191,7 +195,10 @@ export class DogRealistic implements DogRigApi {
     // A fixed turn so he is seen at an angle: his side, ears and tail show.
     this.root.getTransform().setLocalRotation(quat.fromEulerAngles(0, viewYawDeg * DEG, 0))
 
-    body.setParent(this.root)
+    // Everything hangs under a "focus" node whose origin is at the dog's feet, so growing and turning it keeps his paws on the floor.
+    this.focus = global.scene.createSceneObject("DogFocus")
+    this.focus.setParent(this.root)
+    body.setParent(this.focus)
     body.enabled = true
     const bt = body.getTransform()
     bt.setLocalRotation(quat.quatIdentity())
@@ -240,8 +247,18 @@ export class DogRealistic implements DogRigApi {
     }
   }
 
+  /** Turn toward the viewer and grow a little (true), or go back (false). */
+  setFocus(on: boolean): void {
+    this.focusTarget = on ? 1 : 0
+  }
+
   update(dt: number): void {
     this.clock += dt
+    this.focusT += (this.focusTarget - this.focusT) * Math.min(1, dt * 5)
+    const f = this.focusT
+    const s = 1 + (Config.DOG_FOCUS_SCALE - 1) * f
+    this.focus.getTransform().setLocalScale(new vec3(s, s, s))
+    this.focus.getTransform().setLocalRotation(quat.fromEulerAngles(0, Config.DOG_FOCUS_YAW_DEG * f * DEG, 0))
     const k = Math.min(1, dt * BLEND_PER_SECOND)
     const c = this.cur as unknown as {[key: string]: number}
     const t = this.target as unknown as {[key: string]: number}
@@ -371,7 +388,8 @@ export class DogRealistic implements DogRigApi {
       }
       this.eyes.push({side: s, iris, pupil, glint, upper: upperPivot, lower: lowerPivot, sclera})
       if (s > 0) {
-        this.anchors.eyes = eye
+        // The dot for "eyes" sits at the outer corner of the eye, away from the mouth dot, even when Moti faces the viewer.
+        this.anchors.eyes = this.node(eye, "anchorEye", [0.035, 0.012, 0.01])
       }
     })
   }
@@ -399,7 +417,7 @@ export class DogRealistic implements DogRigApi {
       ;(down as unknown as {len: number}).len = len * 0.75
     }
     this.anchors.jaw = this.node(jaw, "anchorJaw", this.inJaw([0.06, 0.092, 0.4]))
-    this.anchors.mouth = this.node(head, "anchorMouth", this.inHead([0.1, 0.205, 0.45]))
+    this.anchors.mouth = this.node(head, "anchorMouth", this.inHead([0.115, 0.168, 0.44]))
   }
 
   private buildFur(): void {

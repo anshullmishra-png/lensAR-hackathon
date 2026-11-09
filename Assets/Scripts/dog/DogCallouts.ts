@@ -31,7 +31,7 @@ const LEGEND_Z = 0
 const HEADER_Y = 134
 const FIRST_ROW_Y = 116
 const ROW_STEP = 13.5
-const DOT_CM = 5
+const DOT_CM = 4.2
 const DARK = new vec4(0.08, 0.08, 0.1, 1)
 
 interface Slot {
@@ -46,8 +46,15 @@ export class DogCallouts {
   private header: Text
   private headerEn: Text
   private slots: Slot[] = []
+  private active: Signal[] | null = null
 
-  constructor(parent: SceneObject, sphere: RenderMesh, dotMaterial: Material, private rig?: DogRigApi) {
+  constructor(
+    parent: SceneObject,
+    sphere: RenderMesh,
+    dotMaterial: Material,
+    private rig?: DogRigApi,
+    private onVisible?: (visible: boolean) => void
+  ) {
     this.root = global.scene.createSceneObject("Callouts")
     this.root.setParent(parent)
 
@@ -70,6 +77,26 @@ export class DogCallouts {
 
   hide(): void {
     this.root.enabled = false
+    this.active = null
+    if (this.onVisible) {
+      this.onVisible(false)
+    }
+  }
+
+  /** Call every frame: keeps each dot on its body part while Moti turns and grows. */
+  update(): void {
+    if (!this.active || !this.root.enabled) {
+      return
+    }
+    this.active.forEach((sig, i) => {
+      const slot = this.slots[i]
+      if (!slot || !sig) {
+        return
+      }
+      const pos = this.anchorPosition(sig.id)
+      slot.dot.getTransform().setLocalPosition(pos)
+      slot.badge.sceneObject.getTransform().setLocalPosition(new vec3(pos.x, pos.y, pos.z + DOT_CM / 2 + 0.4))
+    })
   }
 
   private buildSlot(index: number, sphere: RenderMesh, material: Material): Slot {
@@ -126,6 +153,10 @@ export class DogCallouts {
       slot.hi.text = `${i + 1}  ${sig.text.hi}`
       slot.en.text = sig.text.en
     })
+    this.active = signals
     this.root.enabled = true
+    if (this.onVisible) {
+      this.onVisible(true)
+    }
   }
 }
