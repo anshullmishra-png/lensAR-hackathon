@@ -10,11 +10,13 @@ const TAIL_SEGMENTS = 4
 type Vec = [number, number, number]
 
 /** Fur colours (linear-ish RGB). */
-const ORANGE: Vec = [0.86, 0.5, 0.18]
-const DARK: Vec = [0.5, 0.26, 0.1]
-const CREAM: Vec = [0.96, 0.9, 0.78]
-const BLACK: Vec = [0.05, 0.04, 0.04]
-const PINK: Vec = [0.95, 0.42, 0.5]
+const ORANGE: Vec = [0.95, 0.66, 0.32]
+const DARK: Vec = [0.72, 0.42, 0.2]
+const CREAM: Vec = [1, 0.95, 0.84]
+const BLACK: Vec = [0.07, 0.05, 0.05]
+const NOSE: Vec = [0.16, 0.09, 0.1]
+const PINK: Vec = [1, 0.5, 0.56]
+const SHADOW: Vec = [0.1, 0.12, 0.1]
 const WHITE: Vec = [0.98, 0.98, 0.98]
 
 /**
@@ -43,6 +45,7 @@ export class DogRig {
   private ears: {pivot: SceneObject; side: number}[] = []
   private tail: SceneObject[] = []
   private hackles: SceneObject[] = []
+  private glints: SceneObject[] = []
 
   private mats: {[name: string]: Material} = {}
 
@@ -64,11 +67,15 @@ export class DogRig {
       m.mainPass.baseColor = new vec4(c[0], c[1], c[2], 1)
       return m
     }
-    this.mats = {orange: mk(ORANGE), dark: mk(DARK), cream: mk(CREAM), black: mk(BLACK), pink: mk(PINK), white: mk(WHITE)}
+    this.mats = {orange: mk(ORANGE), dark: mk(DARK), cream: mk(CREAM), black: mk(BLACK), pink: mk(PINK), white: mk(WHITE), nose: mk(NOSE), shadow: mk(SHADOW)}
+    // Soft shadow: see-through so the floor shows through it.
+    this.mats.shadow.mainPass.blendMode = BlendMode.Normal
+    this.mats.shadow.mainPass.baseColor = new vec4(SHADOW[0], SHADOW[1], SHADOW[2], 0.38)
 
     this.cur = {...DogPoses[startPose].rig}
     this.target = {...this.cur}
 
+    this.buildKeyLight()
     this.buildBody()
     this.buildHead()
     this.buildTail()
@@ -118,9 +125,21 @@ export class DogRig {
     return so
   }
 
+  /** A warm light from the viewer's side and above, so the face and chest are not left in shade. */
+  private buildKeyLight(): void {
+    const so = global.scene.createSceneObject("MotiKeyLight")
+    so.setParent(this.root)
+    so.getTransform().setWorldRotation(quat.fromEulerAngles(-38 * DEG, 18 * DEG, 0))
+    const light = so.createComponent("Component.LightSource") as LightSource
+    light.lightType = LightType.Directional
+    light.intensity = 0.9
+    light.color = new vec3(1, 0.94, 0.86)
+  }
+
   private buildBody(): void {
     const r = this.root
-    this.part(r, "chest", "cream", [0, 27, 13], [23, 24, 24])
+    this.part(r, "shadow", "shadow", [0, 0.15, 0], [44, 0.3, 70])
+    this.part(r, "chest", "cream", [0, 27, 13], [20.5, 21.5, 21.5])
     this.part(r, "body", "orange", [0, 28, 0], [24, 23, 40])
     this.part(r, "rump", "orange", [0, 28, -13], [23, 23, 22])
     this.part(r, "neck", "orange", [0, 37, 19], [13, 16, 14])
@@ -137,9 +156,14 @@ export class DogRig {
   private buildHead(): void {
     this.head = this.node(this.root, "head", [0, 41, 22])
     const h = this.head
-    this.part(h, "skull", "orange", [0, 6, 4], [17, 15, 17])
-    this.part(h, "muzzle", "cream", [0, 3.2, 12], [9.5, 7.4, 11])
-    this.part(h, "nose", "black", [0, 4.4, 17.6], [4.4, 3.4, 3.6])
+    h.getTransform().setLocalScale(new vec3(1.14, 1.14, 1.14))
+    this.part(h, "skull", "orange", [0, 6.5, 4], [21, 18, 19])
+    for (const s of [-1, 1]) {
+      this.part(h, "cheek", "cream", [s * 5.6, 2.6, 10.5], [8, 7, 8])
+    }
+    this.part(h, "muzzle", "cream", [0, 3, 12.5], [10.5, 8, 11])
+    this.part(h, "nose", "nose", [0, 5.2, 18.2], [5.4, 4, 4.2])
+    this.part(h, "noseShine", "white", [-0.9, 6.6, 20], [1.4, 0.9, 0.9])
 
     // Jaw hinges at the back of the mouth and swings down to open it.
     this.jaw = this.node(h, "jaw", [0, 1.2, 7])
@@ -156,14 +180,16 @@ export class DogRig {
     }
 
     for (const s of [-1, 1]) {
-      const eye = this.node(h, "eye", [s * 5.6, 8.5, 11.5])
-      this.rings.push(this.part(eye, "ring", "white", [0, 0, -0.4], [5.6, 5.6, 2]))
-      this.eyes.push(this.part(eye, "pupil", "black", [0, 0, 0.5], [3.6, 3.6, 2.2]))
+      const eye = this.node(h, "eye", [s * 6.1, 9, 11.2])
+      this.rings.push(this.part(eye, "ring", "white", [0, 0, -0.4], [7.4, 7.4, 2]))
+      this.eyes.push(this.part(eye, "pupil", "black", [0, 0, 0.5], [5.2, 5.2, 2.4]))
+      this.glints.push(this.part(eye, "glint", "white", [1.2, 1.4, 1.6], [1.7, 1.7, 1]))
       if (s > 0) {
         this.anchors.eyes = eye
       }
-      const pivot = this.node(h, "earPivot", [s * 6.6, 11.5, 2.5])
-      this.part(pivot, "ear", "dark", [0, 4.2, 0], [6.6, 9, 2.8])
+      const pivot = this.node(h, "earPivot", [s * 7.4, 12.5, 2.5])
+      this.part(pivot, "ear", "dark", [0, 4.4, 0], [7.6, 10, 3.2])
+      this.part(pivot, "earTuft", "cream", [0, 8.8, 0.2], [5, 3.6, 3])
       this.ears.push({pivot, side: s})
       if (s > 0) {
         this.anchors.ears = this.node(pivot, "anchorEar", [0, 8.5, 0])
@@ -176,7 +202,9 @@ export class DogRig {
     for (let i = 0; i < TAIL_SEGMENTS; i++) {
       const len = 7.5
       const seg = this.node(parent, "tailSeg", [0, 0, i === 0 ? 0 : -len])
-      this.part(seg, "tailPart", i === TAIL_SEGMENTS - 1 ? "cream" : "orange", [0, 0, -len / 2], [5.2 - i * 0.7, 5.2 - i * 0.7, len + 2.5])
+      const last = i === TAIL_SEGMENTS - 1
+      const w = last ? 8 : 5.6 - i * 0.5
+      this.part(seg, "tailPart", last ? "cream" : "orange", [0, 0, -len / 2], [w, w, len + (last ? 1.5 : 2.5)])
       this.tail.push(seg)
       parent = seg
     }
@@ -244,9 +272,11 @@ export class DogRig {
     // Eyes: narrow and soft, wide and staring, or closed; with an optional white ring.
     for (let i = 0; i < this.eyes.length; i++) {
       const wide = p.eye
-      this.eyes[i].getTransform().setLocalScale(new vec3(3.6, 3.6 * Math.max(0.12, wide), 2.2))
+      this.eyes[i].getTransform().setLocalScale(new vec3(5.2, 5.2 * Math.max(0.12, wide), 2.4))
       this.rings[i].enabled = p.eyeRing > 0.4 || (p.eye > 1.2)
-      this.rings[i].getTransform().setLocalScale(new vec3(5.6, 5.6 * Math.max(0.12, wide), 2))
+      this.rings[i].getTransform().setLocalScale(new vec3(7.4, 7.4 * Math.max(0.12, wide), 2))
+      this.glints[i].enabled = wide > 0.3
+      this.glints[i].getTransform().setLocalPosition(new vec3(1.2, 1.4 * Math.min(1.3, wide), 1.6))
     }
 
     // Ears: relaxed and a little out; pricked forward; or pinned flat back.
