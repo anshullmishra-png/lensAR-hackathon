@@ -92,10 +92,16 @@ Everything the user reads is in `Assets/Scripts/content/Content.ts`, as `{en, hi
 `// HI: review` marks a Hindi draft that needs a native speaker. `// VERIFY` marks a fact that is **not yet confirmed**.
 Leave both flags in until the line has been checked.
 
+## Signs to look for (callouts on Moti)
+
+After each Level 1 answer, numbered dots appear on Moti's body and a short bilingual "Look for" legend appears beside him (`dog/DogCallouts.ts`; the text lives in `Content.ts` as `signals`). The dog is one static mesh, so the dots point at *where* to look and name the sign; they do not animate his ears or tail.
+
 ## Add the Hindi audio
 
-1. Record one MP3 per id below and name the file exactly the id (e.g. `l1_a.mp3`). Put them in `Assets/Audio/`.
-2. In Lens Studio select `AudioManager` and drag the files into its **Tracks** list.
+The two chimes (`sfx_right`, `sfx_wrong`) are included. The 16 Hindi voice lines are **not recorded yet**; until they are, every line shows as a caption.
+
+1. `node tools/audio-tools.mjs script` (or open `tools/recording-script.md`) lists each line to record. Record one MP3 or WAV per id and name the file exactly the id (e.g. `l1_a.mp3`). Put them in `Assets/Audio/`.
+2. Run `node tools/audio-tools.mjs index`. This writes `Assets/Scripts/audio/AudioIndex.ts` so `AudioManager` finds them by name. (Clips assigned by hand in the **Tracks** list also work.)
 3. A missing clip is never an error: it logs one warning and the Lens carries on with captions.
 
 `onb_intro` · `l1_a` `l1_b` `l1_c` · `l2_eat` `l2_pups` `l2_sleep` `l2_bark` · `l3_intro` `l3_wash` `m_remedy` `m_scratch` `m_stomach` `l3_go` `l3_dose` · `end_msg` · `sfx_right` `sfx_wrong`
