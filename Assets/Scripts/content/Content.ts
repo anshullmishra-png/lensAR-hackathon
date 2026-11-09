@@ -45,13 +45,13 @@ export const Content: ContentRoot = {
         answer: "relaxed",
         // VERIFY: dog body-language signals against a vet / animal-welfare source
         explanation: {
-          en: "Loose body, soft eyes, open mouth and a gentle wag mean Moti is calm.",
-          hi: "ढीला शरीर, नरम आँखें, खुला मुँह और हल्की पूँछ हिलाना: मोती शांत है।" // HI: review
+          en: "Loose body, soft eyes, a relaxed closed mouth and a gentle wag mean Moti is calm.",
+          hi: "ढीला शरीर, नरम आँखें, आराम से बंद मुँह और हल्की पूँछ हिलाना: मोती शांत है।" // HI: review
         },
         signals: [
           {id: "body", text: {en: "Loose body", hi: "ढीला शरीर"}},
           {id: "eyes", text: {en: "Soft eyes", hi: "नरम आँखें"}},
-          {id: "mouth", text: {en: "Open mouth", hi: "खुला मुँह"}},
+          {id: "mouth", text: {en: "Relaxed mouth", hi: "आराम से बंद मुँह"}},
           {id: "tail", text: {en: "Gentle wag", hi: "हल्की पूँछ हिलाना"}}
         ]
       },

@@ -271,7 +271,7 @@ Choices: Relaxed / शांत · Nervous / घबराया हुआ · War
 
 | id | pose | correct | explanation (EN) | VERIFY |
 |---|---|---|---|---|
-| l1_a | relaxed | Relaxed | Loose body, soft eyes, open mouth and a gentle wag mean Moti is calm. | signals vs vet/animal-welfare source |
+| l1_a | relaxed | Relaxed | Loose body, soft eyes, a relaxed closed mouth and a gentle wag mean Moti is calm. | signals vs vet/animal-welfare source |
 | l1_b | nervous | Nervous | Tail tucked, ears back, lip licking and yawning mean Moti is uneasy. Give space. | same |
 | l1_c | warning | Warning | Stiff body, hard stare, raised fur and showing teeth mean "stay away". Back off slowly. | same |
 

@@ -9,8 +9,8 @@ Order matters: record in this order, in one take or one file per line.
     Meaning: This is Moti. Dogs talk with their bodies. Let's learn to listen.
 
  2. **l1_a**
-    Hindi: ढीला शरीर, नरम आँखें, खुला मुँह और हल्की पूँछ हिलाना: मोती शांत है।
-    Meaning: Loose body, soft eyes, open mouth and a gentle wag mean Moti is calm.
+    Hindi: ढीला शरीर, नरम आँखें, आराम से बंद मुँह और हल्की पूँछ हिलाना: मोती शांत है।
+    Meaning: Loose body, soft eyes, a relaxed closed mouth and a gentle wag mean Moti is calm.
 
  3. **l1_b**
     Hindi: पूँछ दबी हुई, कान पीछे, होंठ चाटना और जम्हाई: मोती बेचैन है। उसे जगह दीजिए।
