@@ -11,7 +11,8 @@ export const Content: ContentRoot = {
     notQuite: {en: "Not quite", hi: "ठीक नहीं"}, // HI: review
     levelOf: {en: "Level {n} of {total}", hi: "स्तर {n} / {total}"}, // HI: review
     next: {en: "Next", hi: "आगे"}, // HI: review
-    skipDemo: {en: "Skip (demo)", hi: "छोड़ें (डेमो)"} // HI: review
+    skipDemo: {en: "Skip (demo)", hi: "छोड़ें (डेमो)"}, // HI: review
+    lookFor: {en: "Look for", hi: "ध्यान से देखिए"} // HI: review
   },
 
   onboarding: {
@@ -46,7 +47,13 @@ export const Content: ContentRoot = {
         explanation: {
           en: "Loose body, soft eyes, open mouth and a gentle wag mean Moti is calm.",
           hi: "ढीला शरीर, नरम आँखें, खुला मुँह और हल्की पूँछ हिलाना: मोती शांत है।" // HI: review
-        }
+        },
+        signals: [
+          {id: "body", text: {en: "Loose body", hi: "ढीला शरीर"}},
+          {id: "eyes", text: {en: "Soft eyes", hi: "नरम आँखें"}},
+          {id: "mouth", text: {en: "Open mouth", hi: "खुला मुँह"}},
+          {id: "tail", text: {en: "Gentle wag", hi: "हल्की पूँछ हिलाना"}}
+        ]
       },
       {
         id: "l1_b",
@@ -56,7 +63,13 @@ export const Content: ContentRoot = {
         explanation: {
           en: "Tail tucked, ears back, lip licking and yawning mean Moti is uneasy. Give space.",
           hi: "पूँछ दबी हुई, कान पीछे, होंठ चाटना और जम्हाई: मोती बेचैन है। उसे जगह दीजिए।" // HI: review
-        }
+        },
+        signals: [
+          {id: "tail", text: {en: "Tail tucked", hi: "पूँछ दबी हुई"}},
+          {id: "ears", text: {en: "Ears back", hi: "कान पीछे"}},
+          {id: "mouth", text: {en: "Lip licking", hi: "होंठ चाटना"}},
+          {id: "jaw", text: {en: "Yawning", hi: "जम्हाई"}}
+        ]
       },
       {
         id: "l1_c",
@@ -66,7 +79,13 @@ export const Content: ContentRoot = {
         explanation: {
           en: 'Stiff body, hard stare, raised fur and showing teeth mean "stay away". Back off slowly.',
           hi: "अकड़ा शरीर, घूरती नज़र, खड़े बाल और दाँत दिखाना: मतलब \"दूर रहो\"। धीरे-धीरे पीछे हटिए।" // HI: review
-        }
+        },
+        signals: [
+          {id: "body", text: {en: "Stiff body", hi: "अकड़ा शरीर"}},
+          {id: "eyes", text: {en: "Hard stare", hi: "घूरती नज़र"}},
+          {id: "fur", text: {en: "Raised fur", hi: "खड़े बाल"}},
+          {id: "mouth", text: {en: "Showing teeth", hi: "दाँत दिखाना"}}
+        ]
       }
     ]
   },

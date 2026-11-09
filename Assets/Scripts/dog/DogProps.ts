@@ -1,4 +1,5 @@
 import {Log} from "../util/Log"
+import {DogCallouts} from "./DogCallouts"
 import {hasProp} from "./DogPoses"
 
 /**
@@ -33,6 +34,7 @@ export class DogProps extends BaseScriptComponent {
   barkMaterial: Material
 
   private props = new Map<string, SceneObject>()
+  private callouts: DogCallouts
 
   onAwake(): void {
     if (!this.boxMesh || !this.sphereMesh || !this.cylinderMesh) {
@@ -42,6 +44,10 @@ export class DogProps extends BaseScriptComponent {
     this.buildBowl()
     this.buildPuppies()
     this.buildBark()
+    if (this.barkMaterial) {
+      // Numbered "signs to look for" dots and legend (shown after a Level 1 answer).
+      this.callouts = new DogCallouts(this.sceneObject, this.sphereMesh, this.barkMaterial)
+    }
     this.props.forEach((p) => {
       p.enabled = false
     })

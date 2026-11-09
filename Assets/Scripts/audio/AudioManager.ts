@@ -1,6 +1,7 @@
 import {bus} from "../core/EventBus"
 import {Events, PlayAudioPayload} from "../core/Events"
 import {Log} from "../util/Log"
+import {AUDIO_TRACKS} from "./AudioIndex"
 import {audioQueue} from "./AudioQueue"
 
 /**
@@ -22,6 +23,11 @@ export class AudioManager extends BaseScriptComponent {
   private byId = new Map<string, AudioTrackAsset>()
 
   onAwake(): void {
+    // Clips dropped into Assets/Audio (found by file name via the generated AudioIndex)...
+    for (const id of Object.keys(AUDIO_TRACKS)) {
+      this.byId.set(id, AUDIO_TRACKS[id])
+    }
+    // ...and any clips assigned by hand in the Tracks list (these win if both exist).
     const list = this.tracks ?? []
     for (const track of list) {
       if (track) {

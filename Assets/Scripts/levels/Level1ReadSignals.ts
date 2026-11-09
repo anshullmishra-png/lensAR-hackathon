@@ -41,6 +41,10 @@ export class Level1ReadSignals extends LevelBase {
 
       // The chime plays first (FeedbackDisplay), then the recorded explanation, if there is one.
       await this.settle(item.id)
+      // The "signs to look for" callouts on Moti stay up a little longer, after the feedback panel has gone.
+      if (item.signals && item.signals.length > 0) {
+        await this.wait(3)
+      }
 
       bus.emit(Events.HIDE_CARD)
     }

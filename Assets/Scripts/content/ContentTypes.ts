@@ -107,6 +107,8 @@ export interface UiStrings {
   next: LocalText
   /** Label of the demo-only skip button on the wash timer (only shown when DEMO_MODE is on). */
   skipDemo: LocalText
+  /** Header above the "signs to look for" callouts next to Moti. */
+  lookFor: LocalText
 }
 
 export interface OnboardingContent {
