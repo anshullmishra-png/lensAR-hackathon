@@ -3,7 +3,7 @@ import {Signal} from "../content/ContentTypes"
 import {bus} from "../core/EventBus"
 import {AnswerResultPayload, Events} from "../core/Events"
 import {addText, COLOR_TEXT_DIM} from "../ui/UiText"
-import {DogRig} from "./DogRig"
+import {DogRigApi} from "./DogRigApi"
 
 /**
  * "Signs to look for": numbered dots on Moti's body plus a short legend next to him, shown AFTER the
@@ -47,7 +47,7 @@ export class DogCallouts {
   private headerEn: Text
   private slots: Slot[] = []
 
-  constructor(parent: SceneObject, sphere: RenderMesh, dotMaterial: Material, private rig?: DogRig) {
+  constructor(parent: SceneObject, sphere: RenderMesh, dotMaterial: Material, private rig?: DogRigApi) {
     this.root = global.scene.createSceneObject("Callouts")
     this.root.setParent(parent)
 

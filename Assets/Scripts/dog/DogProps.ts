@@ -1,7 +1,9 @@
 import {Log} from "../util/Log"
 import {Config} from "../app/Config"
 import {DogCallouts} from "./DogCallouts"
+import {DogRealistic} from "./DogRealistic"
 import {DogRig} from "./DogRig"
+import {DogRigApi} from "./DogRigApi"
 import {hasProp} from "./DogPoses"
 
 /**
@@ -37,7 +39,7 @@ export class DogProps extends BaseScriptComponent {
 
   private props = new Map<string, SceneObject>()
   private callouts: DogCallouts
-  private rig: DogRig
+  private rig: DogRigApi
 
   onAwake(): void {
     if (!this.boxMesh || !this.sphereMesh || !this.cylinderMesh) {
@@ -70,13 +72,22 @@ export class DogProps extends BaseScriptComponent {
       Log.warn("DogProps: DogModel / DogMesh not found, keeping the static dog")
       return
     }
+    // The realistic dog lives in the scene as "RealisticDog"; find it before the old mesh is hidden.
+    const realistic = Config.REALISTIC_DOG ? this.find(model, "RealisticDog") : null
     for (let i = 0; i < meshNode.getChildrenCount(); i++) {
       meshNode.getChild(i).enabled = false
     }
     // The old mesh was authored large and centred; the new dog is built in cm with his feet at the origin.
     meshNode.getTransform().setLocalScale(vec3.one())
     meshNode.getTransform().setLocalPosition(vec3.zero())
-    this.rig = new DogRig(meshNode, this.sphereMesh, this.boxMesh, this.puppyMaterial, Config.DOG_VIEW_YAW_DEG, "relaxed")
+    if (realistic) {
+      this.rig = new DogRealistic(meshNode, realistic, this.sphereMesh, this.boxMesh, this.puppyMaterial, Config.DOG_VIEW_YAW_DEG, "relaxed")
+    } else {
+      if (Config.REALISTIC_DOG) {
+        Log.warn("DogProps: RealisticDog not found in the scene, using the shape-built dog")
+      }
+      this.rig = new DogRig(meshNode, this.sphereMesh, this.boxMesh, this.puppyMaterial, Config.DOG_VIEW_YAW_DEG, "relaxed")
+    }
     // Cancel the parent's scale so one rig unit is one cm.
     const k = Config.DOG_SCALE / model.getTransform().getLocalScale().x
     this.rig.root.getTransform().setLocalScale(new vec3(k, k, k))
@@ -160,7 +171,7 @@ export class DogProps extends BaseScriptComponent {
 
   /** Sound rays fanning out to both sides of the dog's mouth, so they never cover its face. */
   private buildBark(): void {
-    const g = this.group("bark", -22, 60, 32)
+    const g = this.group("bark", -22, Config.REALISTIC_DOG ? 46 : 60, 32)
     const radius = 8
     for (const side of [-1, 1]) {
       for (const deg of [-50, 0, 50]) {

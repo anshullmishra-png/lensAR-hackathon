@@ -14,6 +14,8 @@ export const Config = {
 
   /** true = the dog built from parts (ears, tail, jaw, fur move); false = the old single static mesh. */
   RIG_DOG: true,
+  /** true = the realistic skinned dog (needs the "RealisticDog" object in the scene); false = the shape-built dog (fallback). */
+  REALISTIC_DOG: true,
   /** The articulated dog is turned this many degrees so he is seen at an angle and his tail and ears show. */
   DOG_VIEW_YAW_DEG: -32,
   /** Size of the articulated dog relative to a 55 cm dog. */
