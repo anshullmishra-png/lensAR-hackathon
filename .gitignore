@@ -26,3 +26,7 @@ spk_debug_key.pem
 .codex/
 .cursor/
 .vscode/
+# Tooling leftovers that the Lens does not use
+Plugins/
+Packages/AiPreviewAgent*
+Packages/Bitmoji*

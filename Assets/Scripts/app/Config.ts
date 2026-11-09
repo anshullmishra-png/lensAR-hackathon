@@ -32,7 +32,7 @@ export const Config = {
   /** Vertical position of each panel inside the UI anchor, cm (0 = anchor centre). AppRoot applies these. */
   UI_Y: {progress: 29, card: 9, choices: -12, feedback: -19, captions: 41, dose: 9, end: -3},
   /** No floor query exists in the preview, so the floor is a fixed drop below the camera. */
-  EYE_TO_FLOOR: 90,
+  EYE_TO_FLOOR: 92,
 
   /** Where the forearm lies: straight ahead and well below eye level, under the panels. The view is
    *  narrow, so it must be near the centre line to stay in frame. */

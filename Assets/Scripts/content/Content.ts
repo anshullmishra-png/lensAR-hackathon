@@ -173,8 +173,8 @@ export const Content: ContentRoot = {
       id: "l3_wash",
       title: {en: "Step 1: Wash", hi: "पहला कदम: धोएँ"}, // HI: review
       text: {
-        en: "Wash the wound right away with soap and running water for about 15 minutes.",
-        hi: "घाव को तुरंत साबुन और बहते पानी से लगभग 15 मिनट तक धोएँ।" // VERIFY
+        en: "Wash the wound right away with soap and running water for at least 15 minutes.",
+        hi: "घाव को तुरंत साबुन और बहते पानी से कम से कम 15 मिनट तक धोएँ।" // HI: review. English matches the WHO rabies fact sheet ("at least 15 minutes")
       }
     },
     mythPrompt: {en: "Myth or fact?", hi: "मिथक या सच?"}, // HI: review
