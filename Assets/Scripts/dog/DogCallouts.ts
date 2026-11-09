@@ -3,6 +3,7 @@ import {Signal} from "../content/ContentTypes"
 import {bus} from "../core/EventBus"
 import {AnswerResultPayload, Events} from "../core/Events"
 import {addText, COLOR_TEXT_DIM} from "../ui/UiText"
+import {DogRig} from "./DogRig"
 
 /**
  * "Signs to look for": numbered dots on Moti's body plus a short legend next to him, shown AFTER the
@@ -25,8 +26,8 @@ const ANCHORS: {[part: string]: [number, number, number]} = {
 }
 
 const MAX_SLOTS = 4
-const LEGEND_X = 6
-const LEGEND_Z = 36
+const LEGEND_X = 0
+const LEGEND_Z = 0
 const HEADER_Y = 134
 const FIRST_ROW_Y = 116
 const ROW_STEP = 13.5
@@ -46,7 +47,7 @@ export class DogCallouts {
   private headerEn: Text
   private slots: Slot[] = []
 
-  constructor(parent: SceneObject, sphere: RenderMesh, dotMaterial: Material) {
+  constructor(parent: SceneObject, sphere: RenderMesh, dotMaterial: Material, private rig?: DogRig) {
     this.root = global.scene.createSceneObject("Callouts")
     this.root.setParent(parent)
 
@@ -96,6 +97,18 @@ export class DogCallouts {
     this.show(item.signals)
   }
 
+  /** Where to put the dot for a body part: on the real part when the dog is built from parts, else a fixed spot. */
+  private anchorPosition(part: string): vec3 {
+    const marker = this.rig ? this.rig.anchors[part] : undefined
+    if (marker) {
+      const local = this.root.getTransform().getInvertedWorldTransform().multiplyPoint(marker.getTransform().getWorldPosition())
+      // Nudge toward the viewer so the dot sits in front of the part, not inside it.
+      return new vec3(local.x, local.y, local.z + 9)
+    }
+    const a = ANCHORS[part] ?? ANCHORS.body
+    return new vec3(a[0], a[1], a[2])
+  }
+
   private show(signals: Signal[]): void {
     this.slots.forEach((slot, i) => {
       const sig = signals[i]
@@ -107,10 +120,9 @@ export class DogCallouts {
       if (!sig) {
         return
       }
-      const a = ANCHORS[sig.id] ?? ANCHORS.body
-      const pos = new vec3(a[0], a[1], a[2])
+      const pos = this.anchorPosition(sig.id)
       slot.dot.getTransform().setLocalPosition(pos)
-      slot.badge.sceneObject.getTransform().setLocalPosition(new vec3(a[0], a[1], a[2] + DOT_CM / 2 + 0.4))
+      slot.badge.sceneObject.getTransform().setLocalPosition(new vec3(pos.x, pos.y, pos.z + DOT_CM / 2 + 0.4))
       slot.hi.text = `${i + 1}  ${sig.text.hi}`
       slot.en.text = sig.text.en
     })

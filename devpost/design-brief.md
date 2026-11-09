@@ -23,10 +23,10 @@ India has had many cases of children bitten by dogs. As a pet parent, the entran
 
 ## Where things live
 - Where the user is looking during the main task: at Moti and the question card in front of them.
-- Question card, progress dots, answer buttons and feedback panel: centred in front of the user at eye level, about 150 cm away (default).
+- Question card, progress dots, answer buttons and feedback panel: in front of the user at eye level, about 150 cm away and slightly left of centre (default).
 - Captions: at the top of the view (default).
-- Moti: in the lower-right of the view, small and far (about 3.4 m in the preview), because the Lens only renders into a narrow band about 27 degrees wide and 36 degrees tall (default; measured in the preview).
-- "Signs to look for": numbered dots on Moti's body and a short legend above him, after a Level 1 answer.
+- Moti: on the right of the view, turned at an angle so his ears and tail show, about 2.8 m away in the preview, because the Lens only renders into a narrow band about 27 degrees wide and 36 degrees tall (default; measured in the preview).
+- "Signs to look for": numbered dots on Moti's actual ears, eyes, mouth, body and tail, and a short legend above him, after a Level 1 answer.
 - Level 3 first-aid arm: low in the view, in front of the user (default).
 
 ## Hands and input
@@ -54,7 +54,7 @@ Each one can be checked in Lens Studio's preview.
 - Recognising real dogs, using the camera, or any custom hand gestures.
 - Voice commands.
 - Giving medical advice or dose schedules: the Lens never judges whether a dog is rabid and never gives a dose count.
-- More than one dog, or a dog whose ears, tail and mouth actually move (Moti is one static mesh).
+- More than one dog, or a realistic dog: Moti is a simple stylised dog built from shapes, with moving ears, tail, jaw, eyes and fur to show body language.
 
 ## Risks and open questions
 - The entrant's words were: "it's about the feedback loop, once trained, enhance the answer." This is read as: after being told what was wrong and shown what to look for, the person can play again and answer better. **To confirm with the entrant.**

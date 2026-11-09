@@ -12,15 +12,21 @@ export const Config = {
   LANGUAGE_PRIMARY: "hi",
   LANGUAGE_SECONDARY: "en",
 
-  DOG_DISTANCE: 340,
-  /** The Lens only renders into a narrow band, about 27 deg wide x 36 deg tall (measured in the preview). The panels
-   *  fill the middle, so the dog is small and far, in the free lower-right corner: right of the buttons, below the card. */
-  DOG_SIDE: 62,
+  /** true = the dog built from parts (ears, tail, jaw, fur move); false = the old single static mesh. */
+  RIG_DOG: true,
+  /** The articulated dog is turned this many degrees so he is seen at an angle and his tail and ears show. */
+  DOG_VIEW_YAW_DEG: -32,
+  /** Size of the articulated dog relative to a 55 cm dog. */
+  DOG_SCALE: 0.9,
+  DOG_DISTANCE: 280,
+  /** The Lens only renders into a narrow band, about 27 deg wide x 36 deg tall (measured in the preview). The panels sit
+   *  slightly left of centre and Moti stands in the free space on the right, turned so his ears and tail show. */
+  DOG_SIDE: 43,
   UI_DISTANCE: 150,
   /** Multiplies every text size (see addText). The view is only ~36 deg tall, so text must be big to read. */
   TEXT_SCALE: 1.9,
-  /** Panels are centred: any sideways offset pushes the 42 cm card out of the ~27 deg wide view. */
-  UI_SIDE_OFFSET: 0,
+  /** Panels sit 12 cm left of centre (negative = left) to leave room for Moti on the right; more than ~14 pushes the card out of the view. */
+  UI_SIDE_OFFSET: -12,
   /** Panels are centred on eye level: the preview view is only about +/-18 deg tall, and the stack is ~65 cm high. */
   UI_EYE_DROP: 2,
 
@@ -32,12 +38,12 @@ export const Config = {
   /** Vertical position of each panel inside the UI anchor, cm (0 = anchor centre). AppRoot applies these. */
   UI_Y: {progress: 29, card: 9, choices: -12, feedback: -19, captions: 41, dose: 9, end: -3},
   /** No floor query exists in the preview, so the floor is a fixed drop below the camera. */
-  EYE_TO_FLOOR: 92,
+  EYE_TO_FLOOR: 72,
 
   /** Where the forearm lies: straight ahead and well below eye level, under the panels. The view is
    *  narrow, so it must be near the centre line to stay in frame. */
   ARM_DISTANCE: 85,
-  ARM_SIDE: 0,
+  ARM_SIDE: -8,
   ARM_DROP: 22,
   ARM_SCALE: 0.75,
 

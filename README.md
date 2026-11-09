@@ -94,7 +94,7 @@ Leave both flags in until the line has been checked.
 
 ## Signs to look for (callouts on Moti)
 
-After each Level 1 answer, numbered dots appear on Moti's body and a short bilingual "Look for" legend appears beside him (`dog/DogCallouts.ts`; the text lives in `Content.ts` as `signals`). The dog is one static mesh, so the dots point at *where* to look and name the sign; they do not animate his ears or tail.
+After each Level 1 answer, numbered dots appear on Moti's body and a short bilingual "Look for" legend appears beside him (`dog/DogCallouts.ts`; the text lives in `Content.ts` as `signals`). The dots sit on Moti's actual ears, eyes, mouth, body and tail, so they follow him as he moves.
 
 ## Add the Hindi audio
 
@@ -127,10 +127,10 @@ Cite the exact document and date you verified against before recording the video
 ## How it was tuned (and why it differs from the first brief)
 
 - **Tween library:** Motion (installed with UI Kit), because LSTween is not in the Asset Library.
-- **Dog:** one static AI-generated mesh, so poses are whole-body changes (scale, tilt, sleeping on its side) plus props. The card fallback was not needed and is not built.
-- **Panels:** centred at eye level and 150 cm away (spec: 35 cm to the side). The Lens only renders into a band about 27° wide and 36° tall (measured in the Lens Studio preview), so everything must fit that. Captions sit at the top; positions are in `Config.UI_Y`. All text is scaled by `Config.TEXT_SCALE` (1.9) so it stays readable at that size.
+- **Dog:** built from separate parts in code (`dog/DogRig.ts`): body, legs, head, snout, jaw and tongue, eyes, two ears, a four-segment tail and a ridge of fur along the spine. Each state has real cues: relaxed (loose, soft eyes, panting, gentle wag), nervous (ears pinned back, tail tucked, white-ringed eyes, lip licking, yawning), warning (stiff, fur raised, high stiff tail, wide stare, teeth showing), barking, eating, sleeping. He is a simple stylised dog, not a realistic one. The earlier single static AI-generated mesh (`Assets/GeneratedMeshes`) is kept as a fallback behind `Config.RIG_DOG`; it had no joints, so it could not show any of this.
+- **Panels:** at eye level, 150 cm away and 12 cm left of centre to leave room for Moti (spec: 35 cm to the side). The Lens only renders into a band about 27° wide and 36° tall (measured in the Lens Studio preview), so everything must fit that. Captions sit at the top; positions are in `Config.UI_Y`. All text is scaled by `Config.TEXT_SCALE` (1.9) so it stays readable at that size.
 - **Arm:** a stand-in built from basic shapes.
-- **Dog placement:** Moti stands small and far (340 cm) in the free lower-right corner, beside the buttons and below the card, because the panels fill the middle of the narrow view. No floor query exists in the preview, so the floor is a fixed `EYE_TO_FLOOR` (92 cm) below the camera. That value is a **preview workaround**: on real glasses use about 150 cm and recheck the layout (`Layout.test.ts` guards the preview numbers).
+- **Layout:** the panels sit 12 cm left of centre and Moti stands on the right, turned about 32 degrees so his ears and tail show, 280 cm away at 0.9 scale. There is no floor query in the preview, so the floor is a fixed `EYE_TO_FLOOR` (72 cm) below the camera; that is a **preview workaround**. On real glasses use about 150 cm and recheck the layout (`Layout.test.ts` guards the preview numbers).
 - **Dose card:** six blank slots, no numbers or dates. The slot count is decoration, not a dose count.
 - **Events added:** `SET_CHOICES`, `CLEAR_CHOICES`, `DOG_VISIBLE`, `SHOW_DOSE`, `HIDE_DOSE`.
 - **File length:** `WashTimer.ts` (162 lines) and `Content.ts` (data, 257 lines) are over the ~150-line rule.

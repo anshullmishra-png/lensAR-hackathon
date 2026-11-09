@@ -1,5 +1,7 @@
 import {Log} from "../util/Log"
+import {Config} from "../app/Config"
 import {DogCallouts} from "./DogCallouts"
+import {DogRig} from "./DogRig"
 import {hasProp} from "./DogPoses"
 
 /**
@@ -35,6 +37,7 @@ export class DogProps extends BaseScriptComponent {
 
   private props = new Map<string, SceneObject>()
   private callouts: DogCallouts
+  private rig: DogRig
 
   onAwake(): void {
     if (!this.boxMesh || !this.sphereMesh || !this.cylinderMesh) {
@@ -44,13 +47,54 @@ export class DogProps extends BaseScriptComponent {
     this.buildBowl()
     this.buildPuppies()
     this.buildBark()
+    if (Config.RIG_DOG && this.puppyMaterial) {
+      this.buildRig()
+    }
     if (this.barkMaterial) {
       // Numbered "signs to look for" dots and legend (shown after a Level 1 answer).
-      this.callouts = new DogCallouts(this.sceneObject, this.sphereMesh, this.barkMaterial)
+      this.callouts = new DogCallouts(this.sceneObject, this.sphereMesh, this.barkMaterial, this.rig)
     }
     this.props.forEach((p) => {
       p.enabled = false
     })
+  }
+
+  /**
+   * Swap the single static mesh for the dog built from parts. The old mesh is hidden (not deleted) and its
+   * node keeps carrying the sway / shake / bob idle loops, so DogController needs no changes.
+   */
+  private buildRig(): void {
+    const model = this.find(this.sceneObject, "DogModel")
+    const meshNode = model ? this.find(model, "DogMesh") : null
+    if (!model || !meshNode) {
+      Log.warn("DogProps: DogModel / DogMesh not found, keeping the static dog")
+      return
+    }
+    for (let i = 0; i < meshNode.getChildrenCount(); i++) {
+      meshNode.getChild(i).enabled = false
+    }
+    // The old mesh was authored large and centred; the new dog is built in cm with his feet at the origin.
+    meshNode.getTransform().setLocalScale(vec3.one())
+    meshNode.getTransform().setLocalPosition(vec3.zero())
+    this.rig = new DogRig(meshNode, this.sphereMesh, this.boxMesh, this.puppyMaterial, Config.DOG_VIEW_YAW_DEG, "relaxed")
+    // Cancel the parent's scale so one rig unit is one cm.
+    const k = Config.DOG_SCALE / model.getTransform().getLocalScale().x
+    this.rig.root.getTransform().setLocalScale(new vec3(k, k, k))
+    this.createEvent("UpdateEvent").bind(() => this.rig.update(getDeltaTime()))
+  }
+
+  private find(root: SceneObject, name: string): SceneObject | null {
+    for (let i = 0; i < root.getChildrenCount(); i++) {
+      const c = root.getChild(i)
+      if (c.name === name) {
+        return c
+      }
+      const deeper = this.find(c, name)
+      if (deeper) {
+        return deeper
+      }
+    }
+    return null
   }
 
   setVisible(name: string, visible: boolean): void {
@@ -93,17 +137,17 @@ export class DogProps extends BaseScriptComponent {
   }
 
   private buildBowl(): void {
-    const g = this.group("bowl", 0, 0, 22)
+    const g = this.group("bowl", -22, 0, 30)
     this.part(g, this.cylinderMesh, this.bowlMaterial, new vec3(0, 2.5, 0), new vec3(22, 5, 22))
     this.part(g, this.sphereMesh, this.foodMaterial, new vec3(0, 5, 0), new vec3(15, 7, 15))
   }
 
   private buildPuppies(): void {
-    const g = this.group("puppies", 0, 0, -26)
+    const g = this.group("puppies", -6, 0, 30)
     const spots: [number, number, number][] = [
-      [-14, 0, 0],
-      [0, 0, -6],
-      [14, 0, 0]
+      [-11, 0, 0],
+      [0, 0, -5],
+      [11, 0, 0]
     ]
     for (const [x, , z] of spots) {
       const pup = global.scene.createSceneObject("puppy")
@@ -116,7 +160,7 @@ export class DogProps extends BaseScriptComponent {
 
   /** Sound rays fanning out to both sides of the dog's mouth, so they never cover its face. */
   private buildBark(): void {
-    const g = this.group("bark", 0, 42, 40)
+    const g = this.group("bark", -22, 60, 32)
     const radius = 8
     for (const side of [-1, 1]) {
       for (const deg of [-50, 0, 50]) {

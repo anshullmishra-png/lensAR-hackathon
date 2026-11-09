@@ -26,24 +26,25 @@ function panelBottoms(): {name: string; cmBelowEye: number}[] {
 // The Lens renders into a band about 27 deg wide x 36 deg tall, so half of that is the limit for anything on screen.
 const VIEW_HALF_W_DEG = 13
 const VIEW_HALF_H_DEG = 17.5
-const DOG_HALF_WIDTH_CM = 12
+// Half of Moti's width as seen at an angle (head to tail tip, turned ~32 degrees), measured in the preview at scale 0.9.
+const DOG_HALF_WIDTH_CM = 21
+const SIDE_CLEARANCE_DEG = 0.8
 
-test("Layout: the dog sits in the free lower-right corner, clear of the card and inside the view", () => {
-  const cardBottom = angleBelowEye(Config.UI_EYE_DROP - (Config.UI_Y.card - Config.CARD_H / 2), Config.UI_DISTANCE)
-  const dogTop = angleBelowEye(Config.EYE_TO_FLOOR - Config.DOG_HEIGHT, Config.DOG_DISTANCE)
-  const dogBottom = angleBelowEye(Config.EYE_TO_FLOOR, Config.DOG_DISTANCE)
+test("Layout: Moti stands in the free space to the right of the panels, inside the view", () => {
+  const panelRight = Math.atan2(Config.UI_SIDE_OFFSET + Config.CARD_W / 2, Config.UI_DISTANCE) * DEG
+  const panelLeft = Math.atan2(Config.UI_SIDE_OFFSET - Config.CARD_W / 2, Config.UI_DISTANCE) * DEG
   const dogLeft = Math.atan2(Config.DOG_SIDE - DOG_HALF_WIDTH_CM, Config.DOG_DISTANCE) * DEG
   const dogRight = Math.atan2(Config.DOG_SIDE + DOG_HALF_WIDTH_CM, Config.DOG_DISTANCE) * DEG
-  const buttonRight = Math.atan2((Config.CARD_W - 2) / 2, Config.UI_DISTANCE) * DEG // widest buttons (Level 2)
+  const dogBottom = angleBelowEye(Config.EYE_TO_FLOOR, Config.DOG_DISTANCE)
 
   assert(
-    dogTop >= cardBottom + Config.MIN_DOG_CLEARANCE_DEG,
-    `dog's head is ${dogTop.toFixed(1)} deg below eye level but the card's bottom is ${cardBottom.toFixed(1)} deg ` +
-      `(needs ${Config.MIN_DOG_CLEARANCE_DEG} deg of clearance)`
+    dogLeft >= panelRight + SIDE_CLEARANCE_DEG,
+    `Moti's left edge is ${dogLeft.toFixed(1)} deg right of centre but the panels reach ${panelRight.toFixed(1)} deg ` +
+      `(needs ${SIDE_CLEARANCE_DEG} deg of clearance)`
   )
-  assert(dogLeft >= buttonRight, `dog's left edge (${dogLeft.toFixed(1)} deg) overlaps the buttons (${buttonRight.toFixed(1)} deg)`)
-  assert(dogRight <= VIEW_HALF_W_DEG, `dog's right edge is ${dogRight.toFixed(1)} deg, outside the view (${VIEW_HALF_W_DEG} deg)`)
-  assert(dogBottom <= VIEW_HALF_H_DEG, `dog's feet are ${dogBottom.toFixed(1)} deg below eye level, outside the view (${VIEW_HALF_H_DEG} deg)`)
+  assert(panelLeft >= -VIEW_HALF_W_DEG, `the panels' left edge is ${panelLeft.toFixed(1)} deg, outside the view (${VIEW_HALF_W_DEG} deg)`)
+  assert(dogRight <= VIEW_HALF_W_DEG, `Moti's right edge is ${dogRight.toFixed(1)} deg, outside the view (${VIEW_HALF_W_DEG} deg)`)
+  assert(dogBottom <= VIEW_HALF_H_DEG, `Moti's feet are ${dogBottom.toFixed(1)} deg below eye level, outside the view (${VIEW_HALF_H_DEG} deg)`)
 })
 
 test("Layout: the captions sit above the question card, out of the dog's way", () => {
