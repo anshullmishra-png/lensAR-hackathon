@@ -1,5 +1,6 @@
 import {bus} from "../core/EventBus"
 import {Events, SetPosePayload} from "../core/Events"
+import {Log} from "../util/Log"
 import {DogRigApi} from "./DogRigApi"
 import {DogPoses, RigPose} from "./DogPoses"
 
@@ -31,6 +32,51 @@ const GLINT: Vec = [1, 1, 1]
 const TOOTH: Vec = [0.97, 0.95, 0.88]
 const MOUTH: Vec = [0.16, 0.04, 0.05]
 const TONGUE: Vec = [0.88, 0.38, 0.45]
+
+/**
+ * A unit-diameter UV sphere with few triangles. The project's own sphere mesh has 840 triangles, which is far too
+ * many for the dozens of small parts (eyes, fur tufts) used here. rings x segments x 2 triangles, minus the poles.
+ */
+function lowPolySphere(rings: number, segments: number): RenderMesh {
+  const mb = new MeshBuilder([
+    {name: "position", components: 3},
+    {name: "normal", components: 3, normalized: true},
+    {name: "texture0", components: 2}
+  ])
+  mb.topology = MeshTopology.Triangles
+  mb.indexType = MeshIndexType.UInt16
+  const verts: number[] = []
+  for (let r = 0; r <= rings; r++) {
+    const v = r / rings
+    const phi = v * Math.PI
+    for (let s = 0; s <= segments; s++) {
+      const u = s / segments
+      const theta = u * TAU
+      const x = Math.sin(phi) * Math.cos(theta)
+      const y = Math.cos(phi)
+      const z = Math.sin(phi) * Math.sin(theta)
+      verts.push(x * 0.5, y * 0.5, z * 0.5, x, y, z, u, v)
+    }
+  }
+  mb.appendVerticesInterleaved(verts)
+  const idx: number[] = []
+  const row = segments + 1
+  for (let r = 0; r < rings; r++) {
+    for (let s = 0; s < segments; s++) {
+      const a = r * row + s
+      const b2 = a + row
+      if (r !== 0) {
+        idx.push(a, a + 1, b2)
+      }
+      if (r !== rings - 1) {
+        idx.push(a + 1, b2 + 1, b2)
+      }
+    }
+  }
+  mb.appendIndices(idx)
+  mb.updateMesh()
+  return mb.getMesh()
+}
 
 const smooth = (a: number, b: number, x: number): number => {
   const t = Math.max(0, Math.min(1, (x - a) / (b - a)))
@@ -70,6 +116,9 @@ export class DogRealistic implements DogRigApi {
 
   private joints: {[name: string]: SceneObject} = {}
   private mats: {[name: string]: Material} = {}
+  /** Low-poly spheres: the fine one for the eyes, the coarse one for fur tufts, mouth and tongue. */
+  private sphere: RenderMesh
+  private sphereFine: RenderMesh
   private eyes: EyeSet[] = []
   private teethUpper: SceneObject[] = []
   private teethLower: SceneObject[] = []
@@ -80,12 +129,16 @@ export class DogRealistic implements DogRigApi {
   constructor(
     parent: SceneObject,
     private body: SceneObject,
-    private sphere: RenderMesh,
+    sphere: RenderMesh,
     private box: RenderMesh,
     baseMaterial: Material,
     viewYawDeg: number,
     startPose: string
   ) {
+    // The passed-in sphere (840 triangles) is not used: see lowPolySphere.
+    void sphere
+    this.sphere = lowPolySphere(5, 8)
+    this.sphereFine = lowPolySphere(8, 12)
     this.root = global.scene.createSceneObject("DogRealisticRig")
     this.root.setParent(parent)
     // A fixed turn so he is seen at an angle: his side, ears and tail show.
@@ -120,6 +173,16 @@ export class DogRealistic implements DogRigApi {
     this.buildAnchors()
     this.apply()
 
+    const sphereTris = this.sphere.getIndexBuffer().length / 3
+    const fineTris = this.sphereFine.getIndexBuffer().length / 3
+    const boxTris = this.box.getIndexBuffer().length / 3
+    const small = this.countSmall()
+    Log.info(
+      `DogRealistic: joints [${this.jointNames().join(", ")}]; attachments: ${small.fine} fine spheres x ${fineTris} tris + ` +
+        `${small.coarse} coarse spheres x ${sphereTris} tris + ${small.boxes} boxes x ${boxTris} tris = ` +
+        `${small.fine * fineTris + small.coarse * sphereTris + small.boxes * boxTris} tris`
+    )
+
     bus.on(Events.DOG_SET_POSE, (p: SetPosePayload) => this.setPose(p.pose))
   }
 
@@ -139,6 +202,29 @@ export class DogRealistic implements DogRigApi {
       c[key] += (t[key] - c[key]) * k
     }
     this.apply()
+  }
+
+  /** How many sphere and box parts the attachments use (for the log line). */
+  private countSmall(): {fine: number; coarse: number; boxes: number} {
+    const countIn = (node: SceneObject, acc: {fine: number; coarse: number; boxes: number}): void => {
+      const rmv = node.getComponent("Component.RenderMeshVisual") as RenderMeshVisual
+      if (rmv && rmv.mesh === this.sphere) {
+        acc.coarse++
+      } else if (rmv && rmv.mesh === this.sphereFine) {
+        acc.fine++
+      } else if (rmv && rmv.mesh === this.box) {
+        acc.boxes++
+      }
+      for (let i = 0; i < node.getChildrenCount(); i++) {
+        countIn(node.getChild(i), acc)
+      }
+    }
+    const acc = {fine: 0, coarse: 0, boxes: 0}
+    // Everything hangs under the root joint, so count from there once (not once per joint).
+    if (this.joints["root"]) {
+      countIn(this.joints["root"], acc)
+    }
+    return acc
   }
 
   /** Names of every joint found, so a log line can prove the skeleton imported. */
@@ -214,16 +300,16 @@ export class DogRealistic implements DogRigApi {
       const eye = this.node(head, "eye", centre)
       // The head is turned about 22 degrees toward +x and tilted about 11 degrees, so turn the eye to face out of the skin.
       eye.getTransform().setLocalRotation(quat.fromEulerAngles(0, 22 * DEG, -11 * DEG))
-      const sclera = this.part(eye, "sclera", this.sphere, "sclera", [0, 0, 0], [0.062, 0.062, 0.062])
-      const iris = this.part(eye, "iris", this.sphere, "iris", [0, 0, 0.017], [0.052, 0.052, 0.045])
-      const pupil = this.part(eye, "pupil", this.sphere, "pupil", [0, 0, 0.029], [0.03, 0.03, 0.028])
-      const glint = this.part(eye, "glint", this.sphere, "glint", [0.009, 0.011, 0.041], [0.011, 0.011, 0.01])
+      const sclera = this.part(eye, "sclera", this.sphereFine, "sclera", [0, 0, 0], [0.062, 0.062, 0.062])
+      const iris = this.part(eye, "iris", this.sphereFine, "iris", [0, 0, 0.017], [0.052, 0.052, 0.045])
+      const pupil = this.part(eye, "pupil", this.sphereFine, "pupil", [0, 0, 0.029], [0.03, 0.03, 0.028])
+      const glint = this.part(eye, "glint", this.sphereFine, "glint", [0.009, 0.011, 0.041], [0.011, 0.011, 0.01])
       // Eyelids swing about the eye centre: a pivot object holds the shell, offset above or below.
       const upperPivot = this.node(eye, "upperLidPivot", [0, 0, 0])
-      this.part(upperPivot, "upperLid", this.sphere, "lid", [0, 0.03, -0.002], [0.07, 0.03, 0.05])
+      this.part(upperPivot, "upperLid", this.sphereFine, "lid", [0, 0.03, -0.002], [0.07, 0.03, 0.05])
       const lowerPivot = this.node(eye, "lowerLidPivot", [0, 0, 0])
-      this.part(lowerPivot, "lowerLid", this.sphere, "lid", [0, -0.03, -0.002], [0.066, 0.024, 0.046])
-      const brow = this.part(eye, "brow", this.sphere, "brow", [0, 0.046, 0.0], [0.062, 0.012, 0.03])
+      this.part(lowerPivot, "lowerLid", this.sphereFine, "lid", [0, -0.03, -0.002], [0.066, 0.024, 0.046])
+      const brow = this.part(eye, "brow", this.sphereFine, "brow", [0, 0.046, 0.0], [0.062, 0.012, 0.03])
       this.eyes.push({side: s, iris, pupil, glint, upper: upperPivot, lower: lowerPivot, brow, sclera})
       if (s > 0) {
         this.anchors.eyes = eye

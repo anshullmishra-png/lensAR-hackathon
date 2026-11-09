@@ -1,7 +1,7 @@
 /**
- * Pose data only, no logic. The dog is ONE static mesh (no separate tail / ears / head),
- * so a pose is a whole-body change: scale multipliers, pitch and roll, offsets,
- * and an optional idle loop driven by DogController.
+ * Pose data only, no logic. A pose has two parts: a whole-body change (scale multipliers, pitch and roll, offsets and an
+ * optional idle loop driven by DogController) and `rig`, the part-level body language (ears, tail, jaw, eyes, fur) that
+ * DogRealistic (or the fallback DogRig) turns into bone and attachment movement.
  *
  * pitchDeg: + dips the head toward the viewer, - leans it back.
  * rollDeg:  tips the dog onto its side (used for sleeping).
