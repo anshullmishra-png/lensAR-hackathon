@@ -26,9 +26,9 @@ export const Config = {
   /** How many degrees he turns toward the viewer in that moment (his resting turn is DOG_VIEW_YAW_DEG). */
   DOG_FOCUS_YAW_DEG: 24,
   /** Dragging Moti turns him: degrees of turn per centimetre the hand (or mouse) moves. Tune this in the preview. */
-  DOG_SPIN_DEG_PER_CM: 5,
+  DOG_SPIN_DEG_PER_CM: 3,
   /** Side of the invisible box you grab to turn him, cm. */
-  DOG_GRAB_SIZE_CM: 64,
+  DOG_GRAB_SIZE_CM: 80,
   /** The legend next to Moti (header and rows), cm above the floor. Its top must stay inside the view (Layout.test.ts checks it). */
   CALLOUT_HEADER_Y: 150,
   CALLOUT_FIRST_ROW_Y: 134,
